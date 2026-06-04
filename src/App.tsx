@@ -28,6 +28,7 @@ import {
   WandSparkles,
   Workflow,
 } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { Link, NavLink, Route, Routes } from 'react-router-dom'
 import './styles.css'
 
@@ -391,6 +392,11 @@ function Home() {
   return (
     <>
       <section className="hero">
+        <div className="hero-ambient" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+        </div>
         <div className="hero-copy">
           <div className="pill">
             <Sparkles size={16} />
@@ -416,6 +422,12 @@ function Home() {
           </div>
         </div>
         <ProductConsole />
+        <div className="hero-floating-notes" aria-hidden="true">
+          <span>课程材料</span>
+          <span>校本知识库</span>
+          <span>私有化部署</span>
+          <span>智能体工作流</span>
+        </div>
       </section>
 
       <section className="metric-strip" aria-label="QeEdu 产品指标">
@@ -510,14 +522,62 @@ function Home() {
 }
 
 function RotatingMessages() {
+  const [slideIndex, setSlideIndex] = useState(0)
+  const [visibleText, setVisibleText] = useState('')
+  const [mode, setMode] = useState<'typing' | 'holding' | 'deleting'>('typing')
+
+  useEffect(() => {
+    const currentTitle = heroSlides[slideIndex].title
+    const delay = mode === 'holding' ? 1300 : mode === 'deleting' ? 22 : 54
+
+    const timer = window.setTimeout(() => {
+      if (mode === 'typing') {
+        if (visibleText.length < currentTitle.length) {
+          setVisibleText(currentTitle.slice(0, visibleText.length + 1))
+          return
+        }
+
+        setMode('holding')
+        return
+      }
+
+      if (mode === 'holding') {
+        setMode('deleting')
+        return
+      }
+
+      if (visibleText.length > 0) {
+        setVisibleText(currentTitle.slice(0, visibleText.length - 1))
+        return
+      }
+
+      setSlideIndex((index) => (index + 1) % heroSlides.length)
+      setMode('typing')
+    }, delay)
+
+    return () => window.clearTimeout(timer)
+  }, [mode, slideIndex, visibleText])
+
+  const activeSlide = heroSlides[slideIndex]
+
   return (
-    <div className="rotator" aria-label="核心定位">
-      {heroSlides.map((slide, index) => (
-        <article key={slide.title} style={{ animationDelay: `${index * 5}s` }}>
-          <h2>{slide.title}</h2>
-          <p>{slide.text}</p>
-        </article>
-      ))}
+    <div className="typewriter-panel" aria-label="核心定位">
+      <div className="typewriter-window">
+        <span className="terminal-dot" />
+        <span className="terminal-dot" />
+        <span className="terminal-dot" />
+        <span className="terminal-label">QeEdu positioning</span>
+      </div>
+      <h2>
+        {visibleText}
+        <span className="typing-cursor" aria-hidden="true" />
+      </h2>
+      <p key={activeSlide.text}>{activeSlide.text}</p>
+      <div className="typewriter-dots" aria-hidden="true">
+        {heroSlides.map((slide, index) => (
+          <span className={index === slideIndex ? 'active' : ''} key={slide.title} />
+        ))}
+      </div>
     </div>
   )
 }
