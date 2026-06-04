@@ -187,7 +187,7 @@ function Header() {
   return (
     <header className="site-header">
       <Link className="brand" to="/" aria-label="QeEdu 首页">
-        <span className="brand-mark">Q</span>
+        <img className="brand-logo" src="/qeedu-logo.png" alt="" />
         <span>
           <strong>启育 QeEdu</strong>
           <small>AI 原生智能体平台</small>
@@ -211,6 +211,7 @@ function Header() {
           GitHub
         </a>
         <a className="solid-button" href={cloudUrl}>
+          <Cloud size={16} />
           进入 Cloud
           <ArrowRight size={16} />
         </a>
@@ -233,6 +234,7 @@ function Home() {
           <RotatingMessages />
           <div className="hero-actions">
             <a className="solid-button large" href={cloudUrl}>
+              <Cloud size={18} />
               体验云端平台
               <ArrowRight size={18} />
             </a>
@@ -558,6 +560,7 @@ function CallToAction() {
       </div>
       <div className="cta-actions">
         <a className="solid-button large" href={cloudUrl}>
+          <Cloud size={18} />
           打开 Cloud
           <ArrowRight size={18} />
         </a>
@@ -573,7 +576,7 @@ function Footer() {
   return (
     <footer className="footer">
       <div className="brand">
-        <span className="brand-mark">Q</span>
+        <img className="brand-logo" src="/qeedu-logo.png" alt="" />
         <span>
           <strong>启育 QeEdu</strong>
           <small>AI for higher education workflows</small>
