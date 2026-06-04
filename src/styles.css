@@ -462,9 +462,18 @@ select {
 }
 
 .section-header,
+.metric-strip,
+.role-grid,
+.architecture-section,
 .split-section,
 .edition-grid,
+.comparison-section,
+.roadmap-section,
+.faq-section,
 .deployment-section,
+.trial-section,
+.scenario-detail-grid,
+.service-pack-section,
 .cta-section,
 .page-shell,
 .footer {
@@ -490,8 +499,14 @@ select {
 }
 
 .section-header p:last-child,
+.architecture-section p,
 .split-section p,
+.comparison-section p,
+.roadmap-section p,
+.faq-section p,
 .deployment-section p,
+.trial-section p,
+.service-pack-section p,
 .cta-section p,
 .page-hero p {
   margin: 18px auto 0;
@@ -502,7 +517,12 @@ select {
 }
 
 .feature-grid,
-.detail-grid {
+.detail-grid,
+.role-grid,
+.architecture-grid,
+.trial-grid,
+.scenario-detail-grid,
+.service-pack-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 14px;
@@ -512,7 +532,12 @@ select {
 
 .feature-card,
 .edition-card,
-.wide-card {
+.wide-card,
+.role-card,
+.architecture-grid article,
+.trial-grid article,
+.service-pack-grid article,
+.roadmap-list article {
   border: 1px solid rgba(10, 85, 65, 0.12);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.74);
@@ -525,13 +550,22 @@ select {
 }
 
 .feature-card svg,
-.wide-card svg {
+.wide-card svg,
+.role-card svg,
+.architecture-grid svg,
+.trial-grid svg,
+.service-pack-grid svg {
   color: #0d7d5f;
 }
 
 .feature-card h3,
 .edition-card h3,
-.wide-card h3 {
+.wide-card h3,
+.role-card h3,
+.architecture-grid h3,
+.trial-grid h3,
+.service-pack-grid h3,
+.roadmap-list h3 {
   margin: 18px 0 0;
   color: #12352c;
   font-size: 20px;
@@ -539,11 +573,132 @@ select {
 
 .feature-card p,
 .edition-card p,
-.wide-card p {
+.wide-card p,
+.role-card p,
+.architecture-grid p,
+.trial-grid p,
+.service-pack-grid p,
+.roadmap-list p {
   margin: 12px 0 0;
   color: #5a6e65;
   font-size: 15px;
   line-height: 1.68;
+}
+
+.metric-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: -34px;
+  padding: 0 0 36px;
+}
+
+.metric-strip article {
+  min-height: 128px;
+  padding: 22px;
+  border: 1px solid rgba(10, 85, 65, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 16px 45px rgba(5, 43, 31, 0.07);
+}
+
+.metric-strip strong {
+  display: block;
+  color: #0d7d5f;
+  font-size: 36px;
+  line-height: 1;
+}
+
+.metric-strip span {
+  display: block;
+  margin-top: 8px;
+  color: #102f27;
+  font-size: 16px;
+  font-weight: 820;
+}
+
+.metric-strip p {
+  margin: 8px 0 0;
+  color: #5a6e65;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.role-section {
+  padding-top: 12px;
+}
+
+.role-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.role-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 310px;
+  padding: 24px;
+}
+
+.role-card-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.role-card-head h3 {
+  margin: 0;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+.tag-list span {
+  padding: 7px 9px;
+  border-radius: 999px;
+  background: #edf8ee;
+  color: #0d5f49;
+  font-size: 13px;
+  font-weight: 760;
+}
+
+.architecture-section {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(520px, 1.15fr);
+  gap: 46px;
+  align-items: center;
+  padding: 88px 0 30px;
+}
+
+.architecture-copy h2,
+.comparison-section h2,
+.roadmap-copy h2,
+.trial-section h2,
+.service-pack-section h2,
+.faq-section h2 {
+  margin: 0;
+  color: #09271f;
+  font-size: clamp(34px, 5vw, 56px);
+  line-height: 1.06;
+}
+
+.architecture-copy p {
+  margin-left: 0;
+}
+
+.architecture-grid {
+  width: auto;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.architecture-grid article,
+.service-pack-grid article {
+  min-height: 210px;
+  padding: 22px;
 }
 
 .split-section {
@@ -587,6 +742,57 @@ select {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
   padding: 56px 0 32px;
+}
+
+.comparison-section {
+  padding: 72px 0 36px;
+}
+
+.comparison-section > div:first-child {
+  max-width: 780px;
+}
+
+.comparison-table {
+  overflow: hidden;
+  margin-top: 24px;
+  border: 1px solid rgba(10, 85, 65, 0.12);
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 16px 45px rgba(5, 43, 31, 0.06);
+}
+
+.comparison-header,
+.comparison-row {
+  display: grid;
+  grid-template-columns: 0.75fr 1.2fr 1.2fr;
+  gap: 0;
+}
+
+.comparison-header {
+  background: #083d31;
+  color: #dfffd0;
+  font-size: 14px;
+  font-weight: 820;
+}
+
+.comparison-header span,
+.comparison-row strong,
+.comparison-row span {
+  padding: 16px 18px;
+  border-right: 1px solid rgba(10, 85, 65, 0.1);
+}
+
+.comparison-row strong {
+  color: #12352c;
+}
+
+.comparison-row span {
+  color: #526a60;
+  line-height: 1.65;
+}
+
+.comparison-row:nth-child(odd) {
+  background: #f7fbf6;
 }
 
 .edition-card {
@@ -734,6 +940,75 @@ select {
   color: #b8ff5c;
 }
 
+.roadmap-section {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(520px, 1.15fr);
+  gap: 46px;
+  align-items: start;
+  padding: 72px 0 42px;
+}
+
+.roadmap-copy p {
+  margin-left: 0;
+}
+
+.roadmap-list {
+  display: grid;
+  gap: 12px;
+}
+
+.roadmap-list article {
+  padding: 22px;
+}
+
+.roadmap-list span {
+  display: inline-flex;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #e9f7e8;
+  color: #0d5f49;
+  font-size: 12px;
+  font-weight: 820;
+}
+
+.roadmap-list h3 {
+  margin-top: 12px;
+}
+
+.faq-section {
+  display: grid;
+  grid-template-columns: minmax(0, 0.72fr) minmax(520px, 1.28fr);
+  gap: 42px;
+  align-items: start;
+  padding: 58px 0 24px;
+}
+
+.faq-list {
+  display: grid;
+  gap: 10px;
+}
+
+.faq-list details {
+  border: 1px solid rgba(10, 85, 65, 0.12);
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 12px 34px rgba(5, 43, 31, 0.05);
+}
+
+.faq-list summary {
+  cursor: pointer;
+  padding: 18px 20px;
+  color: #12352c;
+  font-weight: 820;
+}
+
+.faq-list details p {
+  margin: 0;
+  padding: 0 20px 18px;
+  color: #526a60;
+  line-height: 1.72;
+}
+
 .cta-section {
   display: flex;
   align-items: center;
@@ -801,6 +1076,48 @@ select {
   min-height: 190px;
 }
 
+.trial-section,
+.service-pack-section {
+  padding: 58px 0 26px;
+}
+
+.trial-section > div:first-child,
+.service-pack-section > div:first-child {
+  max-width: 760px;
+  margin-bottom: 24px;
+}
+
+.trial-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  width: 100%;
+}
+
+.trial-grid article {
+  min-height: 218px;
+  padding: 22px;
+}
+
+.trial-grid span {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: 8px;
+  background: #083d31;
+  color: #b8ff5c;
+  font-weight: 820;
+}
+
+.service-pack-grid,
+.scenario-detail-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  width: 100%;
+}
+
+.scenario-detail-grid {
+  padding: 16px 0 28px;
+}
+
 .footer {
   display: flex;
   align-items: center;
@@ -827,7 +1144,10 @@ select {
   }
 
   .hero,
+  .architecture-section,
   .split-section,
+  .roadmap-section,
+  .faq-section,
   .deployment-section {
     grid-template-columns: 1fr;
   }
@@ -838,7 +1158,15 @@ select {
     padding-top: 58px;
   }
 
-  .feature-grid {
+  .feature-grid,
+  .role-grid,
+  .trial-grid,
+  .scenario-detail-grid,
+  .service-pack-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .architecture-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -871,15 +1199,33 @@ select {
 
   .hero,
   .section-header,
+  .metric-strip,
+  .role-grid,
+  .architecture-section,
   .split-section,
   .edition-grid,
+  .comparison-section,
+  .roadmap-section,
+  .faq-section,
   .deployment-section,
+  .trial-section,
+  .scenario-detail-grid,
+  .service-pack-section,
   .cta-section,
   .page-shell,
   .footer,
   .feature-grid,
   .detail-grid {
     width: calc(100% - 20px);
+  }
+
+  .metric-strip,
+  .role-grid,
+  .architecture-grid,
+  .trial-grid,
+  .scenario-detail-grid,
+  .service-pack-grid {
+    grid-template-columns: 1fr;
   }
 
   .hero {
@@ -947,6 +1293,20 @@ select {
   .detail-grid,
   .scenario-board {
     grid-template-columns: 1fr;
+  }
+
+  .comparison-header {
+    display: none;
+  }
+
+  .comparison-row {
+    grid-template-columns: 1fr;
+  }
+
+  .comparison-row strong,
+  .comparison-row span {
+    border-right: 0;
+    border-bottom: 1px solid rgba(10, 85, 65, 0.08);
   }
 
   .section-header {

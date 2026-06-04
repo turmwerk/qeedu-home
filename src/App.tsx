@@ -2,21 +2,30 @@ import {
   ArrowRight,
   BookOpen,
   Boxes,
+  BrainCircuit,
+  ClipboardList,
   Building2,
   Check,
   ChevronRight,
   Cloud,
   DatabaseZap,
+  FileText,
   Github,
+  GraduationCap,
   Layers3,
+  LineChart,
   LockKeyhole,
   Network,
   PanelsTopLeft,
   School,
+  Server,
+  Settings2,
   ShieldCheck,
   Sparkles,
   TerminalSquare,
+  UserCheck,
   Users,
+  WandSparkles,
   Workflow,
 } from 'lucide-react'
 import { Link, NavLink, Route, Routes } from 'react-router-dom'
@@ -30,6 +39,7 @@ const githubUrl = 'https://github.com/turmwerk/qeedu'
 
 const navItems = [
   { label: '产品', href: '/product' },
+  { label: '场景', href: '/scenarios' },
   { label: '方案', href: '/education' },
   { label: '版本', href: '/pricing' },
   { label: '安全', href: '/security' },
@@ -81,6 +91,114 @@ const scenarios = [
   '活动策划与材料汇总',
   '科研项目申报辅助',
   '就业与竞赛指导',
+]
+
+const metrics = [
+  { value: '3', label: '版本路线', desc: 'Community、Cloud、Education' },
+  { value: '6+', label: '高频场景', desc: '教学、学工、行政、科研、竞赛、就业' },
+  { value: '4 层', label: '交付边界', desc: '知识、智能体、权限、部署' },
+]
+
+const roleScenarios: Array<{ icon: IconComponent; role: string; desc: string; tasks: string[] }> = [
+  {
+    icon: GraduationCap,
+    role: '教师',
+    desc: '面向课程建设、教学材料、科研申报和学院事务，把重复写作变成可复用模板。',
+    tasks: ['教案与题目生成', '课程资料整理', '科研申报摘要', '学院通知草稿'],
+  },
+  {
+    icon: Users,
+    role: '学生',
+    desc: '面向学习规划、竞赛项目、就业准备和校园活动，提供结构化建议与草稿生成。',
+    tasks: ['学习计划', '竞赛计划书', '简历与面试', '活动策划'],
+  },
+  {
+    icon: UserCheck,
+    role: '辅导员与学工',
+    desc: '围绕学生事务、常见问答、活动组织和材料汇总，减少高频重复沟通成本。',
+    tasks: ['事务问答', '活动方案', '材料汇总', '流程说明'],
+  },
+  {
+    icon: Building2,
+    role: '行政与平台运营',
+    desc: '用于制度检索、模板管理、试点复盘和权限配置，而不是替代核心审批系统。',
+    tasks: ['制度检索', '模板维护', '权限配置', '审计复盘'],
+  },
+]
+
+const architectureLayers: Array<{ icon: IconComponent; title: string; desc: string }> = [
+  {
+    icon: PanelsTopLeft,
+    title: 'Cloudflare 前端',
+    desc: '官网、文档和 Cloud 产品分域部署，便于展示、试用和后续运营。',
+  },
+  {
+    icon: Server,
+    title: 'API 与微服务',
+    desc: '以 API 网关连接用户、智能体、聊天、沙箱等后端能力，保持可扩展边界。',
+  },
+  {
+    icon: BrainCircuit,
+    title: '模型与工具编排',
+    desc: '支持第三方模型、本地模型或学校指定模型网关，按任务组合知识检索与生成。',
+  },
+  {
+    icon: LockKeyhole,
+    title: '数据与权限',
+    desc: '围绕知识库、角色权限、调用日志和私有化部署设计安全闭环。',
+  },
+]
+
+const trialSteps = [
+  {
+    title: '选择低风险试点',
+    desc: '从通知草稿、课程材料、活动策划、就业辅导等辅助任务开始。',
+  },
+  {
+    title: '沉淀校本知识',
+    desc: '导入制度文件、模板、问答和历史案例，让输出贴近真实学校语境。',
+  },
+  {
+    title: '配置智能体模板',
+    desc: '把任务拆成检索、生成、校对、导出等节点，形成可复用流程。',
+  },
+  {
+    title: '评估并扩展',
+    desc: '用生成时间、修改比例、复用次数和用户反馈评估是否扩大试点。',
+  },
+]
+
+const roadmap = [
+  { stage: '当前', title: '可展示的 Cloud 体验', desc: '官网、文档、登录、核心 AI 辅助能力和比赛演示闭环。' },
+  { stage: '近期', title: '社区版开源共建', desc: '完善部署文档、示例模板和 Issue 反馈，让外部用户能跑起来。' },
+  { stage: '中期', title: '教育版试点包', desc: '形成私有化部署、校本知识库初始化、培训和运营复盘模板。' },
+  { stage: '长期', title: '校园智能体生态', desc: '沉淀可复用场景市场和高校 AI 应用最佳实践。' },
+]
+
+const comparisonRows = [
+  ['核心定位', '辅助生成、知识检索、流程建议', '替代 OA、教务、学工等核心系统'],
+  ['适用数据', '公开/低敏材料，或私有化环境内的校本资料', '在云端直接处理高敏校务数据'],
+  ['交付方式', 'Cloud 体验、社区版自部署、教育版私有化', '一次性承诺全校上线'],
+  ['结果责任', 'AI 输出由用户确认后进入正式流程', 'AI 自动作出正式业务结论'],
+]
+
+const faqs = [
+  {
+    question: 'QeEdu 凭什么适合高校？',
+    answer: '它不要求高校替换现有系统，而是先解决材料生成、知识检索、流程说明、模板复用这些低风险高频任务，适合从兴趣用户和小范围试点切入。',
+  },
+  {
+    question: '所谓全角色、全场景会不会太大？',
+    answer: '官网表达的是长期平台方向；当前落地应聚焦教师、学生、辅导员、行政人员的辅助任务，并明确不覆盖核心审批和正式业务决策。',
+  },
+  {
+    question: '如何商业化？',
+    answer: 'Community 建立可信开源入口，Cloud 承接在线试用和订阅，Education 通过私有化部署、校本知识库、场景模板和培训服务形成交付收入。',
+  },
+  {
+    question: '数据安全怎么讲？',
+    answer: '按 Cloud、社区自部署、教育版私有化区分数据边界，并围绕权限、日志、模型接入和人工确认机制说明安全设计。',
+  },
 ]
 
 const editions = [
@@ -165,6 +283,52 @@ const securityItems: Array<{ title: string; desc: string; icon: IconComponent }>
   },
 ]
 
+const scenarioDetails: Array<{ title: string; desc: string; icon: IconComponent }> = [
+  {
+    title: '材料生成',
+    desc: '通知、公文、新闻稿、总结、活动策划案、项目申报摘要。',
+    icon: FileText,
+  },
+  {
+    title: '知识问答',
+    desc: '围绕校本制度、课程资料、竞赛规则和就业政策进行检索式问答。',
+    icon: BookOpen,
+  },
+  {
+    title: '流程建议',
+    desc: '把复杂事务拆成时间表、材料清单、负责人和注意事项。',
+    icon: ClipboardList,
+  },
+  {
+    title: '模板复用',
+    desc: '沉淀学院、社团、实验室常用模板，让下一次任务更快完成。',
+    icon: WandSparkles,
+  },
+]
+
+const servicePacks: Array<{ title: string; desc: string; icon: IconComponent }> = [
+  {
+    title: '部署实施',
+    desc: '域名、HTTPS、数据库、对象存储、模型网关和后端服务配置。',
+    icon: Server,
+  },
+  {
+    title: '知识库初始化',
+    desc: '制度、模板、FAQ、历史案例的整理、分组、导入和校验。',
+    icon: DatabaseZap,
+  },
+  {
+    title: '场景模板',
+    desc: '教师、学生、学工、行政四类模板包，按试点部门调整。',
+    icon: Settings2,
+  },
+  {
+    title: '运营复盘',
+    desc: '使用数据、反馈问题、模板迭代和下一阶段试点建议。',
+    icon: LineChart,
+  },
+]
+
 function Layout() {
   return (
     <div className="app">
@@ -172,6 +336,7 @@ function Layout() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/product" element={<ProductPage />} />
+        <Route path="/scenarios" element={<ScenariosPage />} />
         <Route path="/community" element={<EditionPage edition="Community" />} />
         <Route path="/cloud" element={<EditionPage edition="Cloud" />} />
         <Route path="/education" element={<EducationPage />} />
@@ -253,6 +418,16 @@ function Home() {
         <ProductConsole />
       </section>
 
+      <section className="metric-strip" aria-label="QeEdu 产品指标">
+        {metrics.map((metric) => (
+          <article key={metric.label}>
+            <strong>{metric.value}</strong>
+            <span>{metric.label}</span>
+            <p>{metric.desc}</p>
+          </article>
+        ))}
+      </section>
+
       <section className="marquee-section" aria-label="动态能力">
         <div className="marquee-track">
           {[...scenarios, ...scenarios].map((item, index) => (
@@ -276,6 +451,10 @@ function Home() {
         ))}
       </section>
 
+      <RoleScenarioSection />
+
+      <ArchitectureSection />
+
       <section className="split-section">
         <div>
           <p className="eyebrow">Use Cases</p>
@@ -296,6 +475,8 @@ function Home() {
       </section>
 
       <EditionCards />
+
+      <ComparisonSection />
 
       <section className="deployment-section">
         <div className="deployment-copy">
@@ -318,6 +499,10 @@ function Home() {
           ))}
         </ol>
       </section>
+
+      <RoadmapSection />
+
+      <FaqSection />
 
       <CallToAction />
     </>
@@ -391,6 +576,123 @@ function SectionHeader({ eyebrow, title, desc }: { eyebrow: string; title: strin
   )
 }
 
+function RoleScenarioSection() {
+  return (
+    <section className="role-section">
+      <SectionHeader
+        eyebrow="Roles"
+        title="把“全角色”落到可解释的辅助任务"
+        desc="官网可以讲平台方向，但展示时必须让评委看到具体角色、具体任务、具体边界。QeEdu 先服务愿意尝试 AI 的老师、学生和校园工作人员。"
+      />
+      <div className="role-grid">
+        {roleScenarios.map((item) => (
+          <article className="role-card" key={item.role}>
+            <div className="role-card-head">
+              <item.icon size={24} />
+              <h3>{item.role}</h3>
+            </div>
+            <p>{item.desc}</p>
+            <div className="tag-list">
+              {item.tasks.map((task) => (
+                <span key={task}>{task}</span>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function ArchitectureSection() {
+  return (
+    <section className="architecture-section">
+      <div className="architecture-copy">
+        <p className="eyebrow">Architecture</p>
+        <h2>官网、Cloud、Docs 分域部署，产品边界更清楚</h2>
+        <p>
+          `qeedu.tech` 承接品牌与商业模式，`cloud.qeedu.tech` 承接产品体验，`docs.qeedu.tech`
+          承接部署和二次开发说明。这种结构也方便后续社区版与教育版分层演进。
+        </p>
+      </div>
+      <div className="architecture-grid">
+        {architectureLayers.map((layer) => (
+          <article key={layer.title}>
+            <layer.icon size={22} />
+            <h3>{layer.title}</h3>
+            <p>{layer.desc}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function ComparisonSection() {
+  return (
+    <section className="comparison-section">
+      <div>
+        <p className="eyebrow">Positioning</p>
+        <h2>把边界讲清楚，商业化才可信</h2>
+      </div>
+      <div className="comparison-table" role="table" aria-label="QeEdu 定位边界">
+        <div className="comparison-header" role="row">
+          <span>维度</span>
+          <span>QeEdu 做什么</span>
+          <span>QeEdu 不承诺什么</span>
+        </div>
+        {comparisonRows.map(([dimension, does, not]) => (
+          <div className="comparison-row" role="row" key={dimension}>
+            <strong>{dimension}</strong>
+            <span>{does}</span>
+            <span>{not}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function RoadmapSection() {
+  return (
+    <section className="roadmap-section">
+      <div className="roadmap-copy">
+        <p className="eyebrow">Roadmap</p>
+        <h2>从比赛展示到真实试点的四阶段路线</h2>
+        <p>路线图的重点不是夸大现状，而是说明当前能做什么、下一步如何验证、未来如何形成教育版交付。</p>
+      </div>
+      <div className="roadmap-list">
+        {roadmap.map((item) => (
+          <article key={item.stage}>
+            <span>{item.stage}</span>
+            <h3>{item.title}</h3>
+            <p>{item.desc}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function FaqSection() {
+  return (
+    <section className="faq-section">
+      <div>
+        <p className="eyebrow">FAQ</p>
+        <h2>评委会追问的问题，首页先回答一部分</h2>
+      </div>
+      <div className="faq-list">
+        {faqs.map((item) => (
+          <details key={item.question}>
+            <summary>{item.question}</summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+  )
+}
+
 function EditionCards() {
   return (
     <section className="edition-grid" id="editions">
@@ -446,6 +748,42 @@ function ProductPage() {
           </article>
         ))}
       </section>
+      <section className="trial-section">
+        <div>
+          <p className="eyebrow">Trial Playbook</p>
+          <h2>产品试点不是“全校上线”，而是四步验证</h2>
+        </div>
+        <div className="trial-grid">
+          {trialSteps.map((step, index) => (
+            <article key={step.title}>
+              <span>{index + 1}</span>
+              <h3>{step.title}</h3>
+              <p>{step.desc}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+    </PageShell>
+  )
+}
+
+function ScenariosPage() {
+  return (
+    <PageShell
+      eyebrow="Scenarios"
+      title="高频、低风险、可验证的校园 AI 辅助场景"
+      desc="QeEdu 的场景展示应先证明“有用”，再谈“全角色、全场景”。这些场景适合做比赛演示和小范围试点。"
+    >
+      <RoleScenarioSection />
+      <section className="scenario-detail-grid">
+        {scenarioDetails.map(({ title, desc, icon: Icon }) => (
+          <article className="feature-card compact" key={title}>
+            <Icon size={20} />
+            <h3>{title}</h3>
+            <p>{desc}</p>
+          </article>
+        ))}
+      </section>
     </PageShell>
   )
 }
@@ -492,6 +830,22 @@ function EducationPage() {
           </article>
         ))}
       </section>
+      <section className="service-pack-section">
+        <div>
+          <p className="eyebrow">Delivery Package</p>
+          <h2>教育版交付包</h2>
+          <p>把商业模式落到服务清单，避免只讲“私有化部署”和“学校定制”。</p>
+        </div>
+        <div className="service-pack-grid">
+          {servicePacks.map(({ title, desc, icon: Icon }) => (
+            <article key={title}>
+              <Icon size={22} />
+              <h3>{title}</h3>
+              <p>{desc}</p>
+            </article>
+          ))}
+        </div>
+      </section>
     </PageShell>
   )
 }
@@ -512,6 +866,7 @@ function SecurityPage() {
           </article>
         ))}
       </section>
+      <ComparisonSection />
     </PageShell>
   )
 }
