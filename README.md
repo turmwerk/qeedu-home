@@ -43,6 +43,24 @@
 
 它负责展示 QeEdu 的产品定位、版本路线、商业模式、私有化部署、数据安全和校园试点方案。官网不承载产品登录和业务数据，产品体验请访问 [QeEdu Cloud](https://cloud.qeedu.tech/)，部署与试点说明请访问 [QeEdu Docs](https://docs.qeedu.tech/)。
 
+## English Summary
+
+`qeedu-home` is the official website for QeEdu, an AI-native agent platform for higher education workflows.
+
+The site explains the product positioning, Community / Cloud / Education edition strategy, private deployment model, data safety boundaries, and pilot delivery path. It is a static marketing and product information site. It does not store user accounts, OAuth secrets, or business data.
+
+## 站点职责
+
+QeEdu 采用三站分域结构：
+
+| 站点 | 地址 | 职责 |
+| --- | --- | --- |
+| Official Website | <https://qeedu.tech/> | 产品定位、版本路线、商业模式、私有化部署和数据安全说明 |
+| QeEdu Cloud | <https://cloud.qeedu.tech/> | 实际产品体验、登录、智能体、工作流和 AI 辅助能力 |
+| QeEdu Docs | <https://docs.qeedu.tech/> | 自部署、环境变量、试点交付、数据边界和开发文档 |
+
+官网的目标是让访问者快速理解 QeEdu 为什么存在、适合从哪些校园场景切入、Community / Cloud / Education 三层如何对应开源、试用和交付。
+
 ## 相关仓库
 
 | 仓库 | 地址 | 说明 |
@@ -57,6 +75,13 @@
 - 多路由页面：`/product`、`/scenarios`、`/education`、`/security`、`/pricing`、`/community`、`/cloud`。
 - 品牌资源：QeEdu Logo、霞鹜文楷字体、绿色主题视觉。
 - Cloudflare Pages 支持：包含 SPA 回退 `_redirects`。
+
+## 内容边界
+
+- 不在官网保存后端密钥、OAuth Secret、JWT Secret 或数据库配置。
+- 不在官网承载登录态和业务数据。
+- 商业化表达应强调“AI 辅助层”和“小范围试点”，避免承诺替代高校已有 OA、教务、学工、科研或财务系统。
+- 私有化部署和 CE 自部署命令统一维护在 [QeEdu Docs](https://docs.qeedu.tech/zh/deployment/community-self-hosting) 与 [qeedu/docker](https://github.com/turmwerk/qeedu/tree/main/docker)。
 
 ## 技术栈
 
@@ -105,4 +130,3 @@ dist
 ## 许可证
 
 本仓库基于 [MIT License](LICENSE) 开源。
-
