@@ -7,6 +7,7 @@ import {
   ChevronRight,
   Cloud,
   DatabaseZap,
+  Github,
   Layers3,
   LockKeyhole,
   Network,
@@ -208,6 +209,7 @@ function Header() {
       </nav>
       <div className="header-actions">
         <a className="ghost-button" href={githubUrl}>
+          <Github size={16} />
           GitHub
         </a>
         <a className="solid-button" href={cloudUrl}>
