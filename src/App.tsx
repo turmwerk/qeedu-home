@@ -125,6 +125,29 @@ const capabilityMatrix = [
   ['部署选择', 'Cloud 体验、社区版自部署、教育版私有化'],
 ]
 
+const demoStages = [
+  {
+    label: '输入任务',
+    title: '帮我整理 UBC 交换项目申请',
+    body: '学生上传项目通知或粘贴链接，补充专业、年级、语言成绩和目标时间。',
+  },
+  {
+    label: '检索校本规则',
+    title: '匹配培养方案与国际处要求',
+    body: '系统读取校本知识库，提取申请条件、院系审批、学分认定和材料模板。',
+  },
+  {
+    label: '生成结构化结果',
+    title: '输出时间线、材料清单与邮件草稿',
+    body: 'AI 把碎片信息整理成可编辑的 Markdown、表格和待办节点。',
+  },
+  {
+    label: '人工复核',
+    title: '保留老师或学生最终确认',
+    body: '高风险信息标记来源和置信度，正式提交前由用户编辑、确认和导出。',
+  },
+]
+
 const metrics = [
   { value: '3', label: '版本路线', desc: 'Community、Cloud、Education' },
   { value: '6+', label: '高频场景', desc: '教学、学工、行政、科研、竞赛、就业' },
@@ -479,6 +502,8 @@ function Home() {
         </div>
       </section>
 
+      <DemoShowcaseSection />
+
       <SectionHeader
         eyebrow="Platform"
         title="让 AI 真正进入高校日常任务，而不是停留在聊天窗口"
@@ -658,6 +683,77 @@ function ProductConsole() {
         </div>
       </div>
     </div>
+  )
+}
+
+function DemoShowcaseSection() {
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveIndex((index) => (index + 1) % demoStages.length)
+    }, 2600)
+
+    return () => window.clearInterval(timer)
+  }, [])
+
+  const active = demoStages[activeIndex]
+
+  return (
+    <section className="demo-showcase-section">
+      <div className="demo-copy">
+        <p className="eyebrow">Live Demo Narrative</p>
+        <h2>首页直接展示 QeEdu 如何把一句需求变成可复核结果</h2>
+        <p>
+          评委和用户需要看到“AI 到底做了什么”。这个演示链路把输入、检索、生成和复核拆开，
+          也自然解释了为什么高校场景需要校本知识库和人工确认。
+        </p>
+      </div>
+      <div className="demo-console" aria-label="QeEdu 演示链路">
+        <div className="demo-stage-tabs">
+          {demoStages.map((stage, index) => (
+            <button
+              className={index === activeIndex ? 'active' : ''}
+              key={stage.label}
+              type="button"
+              onClick={() => setActiveIndex(index)}
+            >
+              <span>{index + 1}</span>
+              {stage.label}
+            </button>
+          ))}
+        </div>
+        <div className="demo-screen">
+          <div className="demo-screen-header">
+            <span>QeEdu Agent Run</span>
+            <strong>{active.label}</strong>
+          </div>
+          <div className="demo-output" key={active.title}>
+            <h3>{active.title}</h3>
+            <p>{active.body}</p>
+            <div className="demo-progress">
+              {demoStages.map((stage, index) => (
+                <span className={index <= activeIndex ? 'filled' : ''} key={stage.label} />
+              ))}
+            </div>
+          </div>
+          <div className="demo-result-grid">
+            <article>
+              <strong>时间线</strong>
+              <span>校内报名 03/22，院系审批 03/28，国际处提交 04/05</span>
+            </article>
+            <article>
+              <strong>材料清单</strong>
+              <span>成绩单、语言证明、推荐信、学习计划、护照页</span>
+            </article>
+            <article>
+              <strong>风险提醒</strong>
+              <span>学分认定需提前确认，推荐信至少预留 10 个工作日</span>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
 

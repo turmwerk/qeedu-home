@@ -625,6 +625,193 @@ select {
   white-space: nowrap;
 }
 
+.demo-showcase-section {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(560px, 1.18fr);
+  gap: 48px;
+  align-items: center;
+  padding: 92px 0 18px;
+}
+
+.demo-copy h2 {
+  margin: 0;
+  color: #09271f;
+  font-size: clamp(34px, 5vw, 58px);
+  line-height: 1.06;
+}
+
+.demo-copy p {
+  margin: 18px 0 0;
+  color: #526a60;
+  font-size: 17px;
+  line-height: 1.75;
+}
+
+.demo-console {
+  overflow: hidden;
+  border: 1px solid rgba(10, 85, 65, 0.13);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 24px 76px rgba(5, 43, 31, 0.12);
+}
+
+.demo-stage-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  background: rgba(10, 85, 65, 0.1);
+}
+
+.demo-stage-tabs button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 58px;
+  border: 0;
+  background: #f6fbf4;
+  color: #536b61;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 800;
+  transition:
+    background 180ms ease,
+    color 180ms ease;
+}
+
+.demo-stage-tabs button span {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border-radius: 999px;
+  background: #e4f4e4;
+  color: #0d5f49;
+  font-size: 12px;
+}
+
+.demo-stage-tabs button.active {
+  background: #083d31;
+  color: #dfffd0;
+}
+
+.demo-stage-tabs button.active span {
+  background: #b8ff5c;
+  color: #083d31;
+}
+
+.demo-screen {
+  padding: 24px;
+}
+
+.demo-screen-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 16px;
+  color: #65786f;
+  font-size: 13px;
+  font-weight: 760;
+}
+
+.demo-screen-header strong {
+  color: #0d5f49;
+}
+
+.demo-output {
+  position: relative;
+  overflow: hidden;
+  min-height: 172px;
+  padding: 24px;
+  border: 1px solid rgba(10, 85, 65, 0.12);
+  border-radius: 8px;
+  background:
+    linear-gradient(rgba(8, 61, 49, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(8, 61, 49, 0.04) 1px, transparent 1px),
+    #fbfffa;
+  background-size: 24px 24px;
+  animation: fadeText 280ms ease;
+}
+
+.demo-output::after {
+  position: absolute;
+  inset: 0 auto 0 -40%;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(184, 255, 92, 0.2), transparent);
+  content: "";
+  pointer-events: none;
+  animation: demoSweep 3.4s ease-in-out infinite;
+}
+
+.demo-output h3 {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: #12352c;
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1.15;
+}
+
+.demo-output p {
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+  margin: 14px 0 0;
+  color: #526a60;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.demo-progress {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.demo-progress span {
+  height: 6px;
+  border-radius: 999px;
+  background: #e4eee6;
+  transition: background 180ms ease;
+}
+
+.demo-progress span.filled {
+  background: linear-gradient(90deg, #0d7d5f, #b8ff5c);
+}
+
+.demo-result-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.demo-result-grid article {
+  min-height: 132px;
+  padding: 16px;
+  border: 1px solid rgba(10, 85, 65, 0.1);
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.demo-result-grid strong {
+  display: block;
+  color: #0d5f49;
+  font-size: 14px;
+}
+
+.demo-result-grid span {
+  display: block;
+  margin-top: 10px;
+  color: #526a60;
+  font-size: 14px;
+  line-height: 1.62;
+}
+
 @keyframes marquee {
   from {
     transform: translateX(0);
@@ -632,6 +819,18 @@ select {
 
   to {
     transform: translateX(-50%);
+  }
+}
+
+@keyframes demoSweep {
+  0%,
+  42% {
+    transform: translateX(0);
+  }
+
+  74%,
+  100% {
+    transform: translateX(380%);
   }
 }
 
@@ -720,6 +919,7 @@ select {
 
 .section-header,
 .metric-strip,
+.demo-showcase-section,
 .role-grid,
 .international-flow-section,
 .capability-matrix-section,
@@ -1561,6 +1761,7 @@ select {
   }
 
   .hero,
+  .demo-showcase-section,
   .architecture-section,
   .international-flow-section,
   .capability-matrix-section,
@@ -1629,6 +1830,7 @@ select {
   .hero,
   .section-header,
   .metric-strip,
+  .demo-showcase-section,
   .role-grid,
   .international-flow-section,
   .capability-matrix-section,
@@ -1651,6 +1853,8 @@ select {
   }
 
   .metric-strip,
+  .demo-stage-tabs,
+  .demo-result-grid,
   .role-grid,
   .flow-board,
   .architecture-grid,
@@ -1678,6 +1882,7 @@ select {
   }
 
   .typewriter-panel p,
+  .demo-copy p,
   .section-header p:last-child,
   .split-section p,
   .deployment-section p,
@@ -1724,6 +1929,10 @@ select {
   .insight-panel {
     position: static;
     width: 100%;
+  }
+
+  .demo-screen {
+    padding: 16px;
   }
 
   .feature-grid,
