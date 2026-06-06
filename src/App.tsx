@@ -2042,6 +2042,20 @@ function PageProofSection({ demo }: { demo: PageDemo }) {
 function PageHeroVisual({ demo }: { demo: PageDemo }) {
   return (
     <div className={`page-hero__visual tone-${demo.tone}`} aria-hidden="true">
+      <div className="page-hero__atmosphere">
+        <div className="page-hero__grid" />
+        <div className="page-hero__rails">
+          <span />
+          <span />
+          <span />
+          <span />
+        </div>
+        <div className="page-hero__nodes">
+          {Array.from({ length: 18 }, (_, index) => (
+            <span key={`page-node-${demo.tone}-${index}`} />
+          ))}
+        </div>
+      </div>
       <div className="page-hero__screen">
         <div className="page-hero__topline">
           <span>{demo.label}</span>
