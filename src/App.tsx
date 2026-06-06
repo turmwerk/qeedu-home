@@ -42,6 +42,13 @@ type PageDemo = {
   signals: string[]
   lanes: Array<{ title: string; detail: string; icon: IconComponent }>
   metrics: Array<{ value: string; label: string }>
+  proof: {
+    eyebrow: string
+    title: string
+    summary: string
+    checks: string[]
+    outputs: Array<{ title: string; detail: string; icon: IconComponent }>
+  }
 }
 
 const cloudUrl = 'https://cloud.qeedu.tech'
@@ -604,6 +611,17 @@ const pageDemos: Record<string, PageDemo> = {
       { value: '4', label: '处理节点' },
       { value: 'N', label: '模板扩展' },
     ],
+    proof: {
+      eyebrow: 'Product Proof',
+      title: '把一次校园任务压缩成可复用的四步工作流',
+      summary: '从任务入口、校本资料、智能体节点到导出结果，页面直接展示产品如何跑起来。',
+      checks: ['输入可追踪', '资料可引用', '结果可编辑'],
+      outputs: [
+        { title: '任务入口', detail: '聊天、文件、模板、场景按钮进入同一工作台。', icon: TerminalSquare },
+        { title: '资料底座', detail: '制度、课程材料、FAQ 和历史案例统一检索。', icon: DatabaseZap },
+        { title: '结果交付', detail: '输出清单、邮件、Markdown、表格和复核提示。', icon: FileText },
+      ],
+    },
   },
   scenarios: {
     label: 'Scenario Map',
@@ -621,6 +639,17 @@ const pageDemos: Record<string, PageDemo> = {
       { value: '4', label: '角色入口' },
       { value: '低风险', label: '试点原则' },
     ],
+    proof: {
+      eyebrow: 'Scenario Proof',
+      title: '每个场景先回答谁在用、做什么、交付什么',
+      summary: '页面把教师、学生、学工、行政入口串成一张任务图，避免只列功能名。',
+      checks: ['角色清晰', '任务高频', '交付轻量'],
+      outputs: [
+        { title: '教师入口', detail: '课程、题目、反馈和科研材料快速生成。', icon: GraduationCap },
+        { title: '学生入口', detail: '学习计划、竞赛、就业和国际交流辅助。', icon: Users },
+        { title: '管理入口', detail: '通知、材料、问答和节点提醒形成闭环。', icon: Building2 },
+      ],
+    },
   },
   education: {
     label: 'Delivery Lab',
@@ -638,6 +667,17 @@ const pageDemos: Record<string, PageDemo> = {
       { value: '私有化', label: '部署模式' },
       { value: '可复盘', label: '运营目标' },
     ],
+    proof: {
+      eyebrow: 'Delivery Proof',
+      title: '教育版按试点、部署、知识库、运营四件事交付',
+      summary: '把“学校定制”拆成可报价、可验收、可复盘的实施动作。',
+      checks: ['试点范围', '部署边界', '运营复盘'],
+      outputs: [
+        { title: '试点咨询', detail: '确认部门、场景、低敏数据和成效指标。', icon: Building2 },
+        { title: '私有化部署', detail: '域名、网关、存储、模型和权限配置。', icon: Server },
+        { title: '知识运营', detail: '制度、模板、FAQ、案例持续迭代。', icon: LineChart },
+      ],
+    },
   },
   security: {
     label: 'Trust Center',
@@ -655,6 +695,17 @@ const pageDemos: Record<string, PageDemo> = {
       { value: '审计', label: '默认留痕' },
       { value: '可替换', label: '模型接入' },
     ],
+    proof: {
+      eyebrow: 'Trust Proof',
+      title: '安全页必须把边界讲细，而不是只写安全承诺',
+      summary: '从数据分级、角色权限、模型网关到人工确认，形成试点前可解释的安全叙事。',
+      checks: ['权限隔离', '日志审计', '人工确认'],
+      outputs: [
+        { title: '数据边界', detail: '云端体验、团队空间、私有化环境分别说明。', icon: LockKeyhole },
+        { title: '调用审计', detail: '知识库更新、模型调用、导出动作保留记录。', icon: Network },
+        { title: '复核机制', detail: '高风险结论只做建议，不自动进入正式流程。', icon: ShieldCheck },
+      ],
+    },
   },
   pricing: {
     label: 'Business Model',
@@ -672,6 +723,17 @@ const pageDemos: Record<string, PageDemo> = {
       { value: '订阅', label: '云端收入' },
       { value: '服务', label: '教育版收入' },
     ],
+    proof: {
+      eyebrow: 'Business Proof',
+      title: '三层版本对应三种真实增长路径',
+      summary: 'Community 建信任，Cloud 承接试用和订阅，Education 形成交付收入。',
+      checks: ['开源入口', '云端订阅', '校园交付'],
+      outputs: [
+        { title: 'Community', detail: '开发者和学生团队自部署、反馈、共建模板。', icon: Github },
+        { title: 'Cloud', detail: '在线体验、团队空间、模板市场和轻量订阅。', icon: Cloud },
+        { title: 'Education', detail: '私有化部署、校本知识库和运营复盘服务。', icon: School },
+      ],
+    },
   },
   community: {
     label: 'Community Build',
@@ -689,6 +751,17 @@ const pageDemos: Record<string, PageDemo> = {
       { value: '开源', label: '共建方式' },
       { value: '文档', label: '启动入口' },
     ],
+    proof: {
+      eyebrow: 'Community Proof',
+      title: '社区版要让开发者知道怎么跑、怎么改、怎么贡献',
+      summary: '页面把仓库、模型、模板、反馈四个动作压成可执行路径。',
+      checks: ['可启动', '可配置', '可贡献'],
+      outputs: [
+        { title: '拉起项目', detail: '前端、后端、文档按仓库说明完成启动。', icon: Github },
+        { title: '配置模型', detail: '本地模型或第三方模型网关都可接入。', icon: Sparkles },
+        { title: '共建模板', detail: '场景模板、Issue 和 PR 形成社区反馈。', icon: Boxes },
+      ],
+    },
   },
   cloud: {
     label: 'Cloud Trial',
@@ -706,6 +779,17 @@ const pageDemos: Record<string, PageDemo> = {
       { value: '协作', label: '团队空间' },
       { value: '演示', label: '快速闭环' },
     ],
+    proof: {
+      eyebrow: 'Cloud Proof',
+      title: '云端页面强调最快体验和团队协作闭环',
+      summary: '从注册、空间、样例任务到导出演示，形成比赛和试点前的低摩擦入口。',
+      checks: ['快速进入', '团队协作', '结果导出'],
+      outputs: [
+        { title: '进入空间', detail: '无需运维，直接进入托管应用试用。', icon: Cloud },
+        { title: '运行样例', detail: '助教、助管、助国际等流程可快速演示。', icon: Sparkles },
+        { title: '沉淀结果', detail: '输出材料可导出、复用、带入后续试点。', icon: FileText },
+      ],
+    },
   },
 }
 
@@ -1820,9 +1904,42 @@ function PageShell({
         </div>
         <PageHeroVisual demo={demo} />
       </section>
+      <PageProofSection demo={demo} />
       {children}
       <CallToAction />
     </main>
+  )
+}
+
+function PageProofSection({ demo }: { demo: PageDemo }) {
+  return (
+    <section className={`page-proof tone-${demo.tone}`}>
+      <div className="page-proof__copy">
+        <p className="eyebrow">{demo.proof.eyebrow}</p>
+        <h2>{demo.proof.title}</h2>
+        <p>{demo.proof.summary}</p>
+        <div className="page-proof__checks">
+          {demo.proof.checks.map((check) => (
+            <span key={check}>
+              <Check size={14} />
+              {check}
+            </span>
+          ))}
+        </div>
+      </div>
+      <div className="page-proof__outputs">
+        {demo.proof.outputs.map((output, index) => (
+          <article key={output.title}>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <output.icon size={19} />
+            <div>
+              <h3>{output.title}</h3>
+              <p>{output.detail}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
   )
 }
 
