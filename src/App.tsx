@@ -94,6 +94,37 @@ const scenarios = [
   '就业与竞赛指导',
 ]
 
+const internationalFlow = [
+  {
+    step: '读取项目通知',
+    detail: '从学院官网、国际处通知和项目 PDF 中提取时间、资格、材料和风险点。',
+    output: '截止时间 / 申请条件 / 材料要求',
+  },
+  {
+    step: '生成申请规划',
+    detail: '把申请动作拆成周计划、提醒节点、材料负责人和需要人工确认的事项。',
+    output: '时间线 / 待办清单 / 风险提醒',
+  },
+  {
+    step: '辅助材料准备',
+    detail: '生成邮件草稿、个人陈述结构、材料核对表和中英文沟通模板。',
+    output: '邮件草稿 / 清单 / 文书框架',
+  },
+  {
+    step: '回国认定归档',
+    detail: '把成绩单、课程描述、学分认定说明整理成可复核的归档材料。',
+    output: '认定说明 / 归档摘要 / 可追溯来源',
+  },
+]
+
+const capabilityMatrix = [
+  ['校本知识', '培养方案、办事指南、项目通知、课程材料'],
+  ['智能体模板', '助国际、助教、助管、助研、助学等场景入口'],
+  ['结构化输出', '清单、时间线、邮件、表格、Markdown 文档'],
+  ['人工复核', '高风险节点保留确认、编辑、导出和审计记录'],
+  ['部署选择', 'Cloud 体验、社区版自部署、教育版私有化'],
+]
+
 const metrics = [
   { value: '3', label: '版本路线', desc: 'Community、Cloud、Education' },
   { value: '6+', label: '高频场景', desc: '教学、学工、行政、科研、竞赛、就业' },
@@ -465,6 +496,10 @@ function Home() {
 
       <RoleScenarioSection />
 
+      <InternationalFlowSection />
+
+      <CapabilityMatrixSection />
+
       <ArchitectureSection />
 
       <section className="split-section">
@@ -658,6 +693,53 @@ function RoleScenarioSection() {
               ))}
             </div>
           </article>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function InternationalFlowSection() {
+  return (
+    <section className="international-flow-section">
+      <div className="flow-copy">
+        <p className="eyebrow">Flagship Workflow</p>
+        <h2>用助国际打穿一个真实高校流程</h2>
+        <p>
+          “全场景”不能只靠口号。QeEdu 的首个强展示场景应当是国际交流：它天然跨系统、跨材料、跨语言、跨周期，
+          适合证明校本知识库、智能体编排和人工复核的价值。
+        </p>
+      </div>
+      <div className="flow-board" aria-label="助国际流程">
+        {internationalFlow.map((item, index) => (
+          <article key={item.step}>
+            <div className="flow-index">{String(index + 1).padStart(2, '0')}</div>
+            <h3>{item.step}</h3>
+            <p>{item.detail}</p>
+            <span>{item.output}</span>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function CapabilityMatrixSection() {
+  return (
+    <section className="capability-matrix-section">
+      <div className="matrix-copy">
+        <p className="eyebrow">Capability Map</p>
+        <h2>把“平台能力”拆成评委能看懂的五个部件</h2>
+        <p>
+          官网展示不只写商业词汇，而是说明每一层如何支撑可交付的校园 AI 辅助服务。
+        </p>
+      </div>
+      <div className="matrix-panel">
+        {capabilityMatrix.map(([title, desc]) => (
+          <div className="matrix-row" key={title}>
+            <strong>{title}</strong>
+            <span>{desc}</span>
+          </div>
         ))}
       </div>
     </section>
