@@ -64,6 +64,17 @@ const navItems = [
   { label: '文档', href: docsUrl, external: true },
 ]
 
+const homeAnchors = [
+  { id: 'home-hero', label: '首页' },
+  { id: 'home-demo', label: '演示' },
+  { id: 'home-workbench', label: '工作台' },
+  { id: 'home-agents', label: '编排' },
+  { id: 'home-platform', label: '平台' },
+  { id: 'home-roles', label: '角色' },
+  { id: 'home-flow', label: '流程' },
+  { id: 'home-editions', label: '版本' },
+]
+
 const heroSlides = [
   {
     title: '把高校日常事务变成可复用的 AI 工作流',
@@ -971,7 +982,8 @@ function Header() {
 function Home() {
   return (
     <>
-      <section className="hero">
+      <HomeSectionNav />
+      <section className="hero" id="home-hero">
         <div className="hero-ambient" aria-hidden="true">
           <span />
           <span />
@@ -1035,6 +1047,7 @@ function Home() {
       <AgentOrchestrationLab />
 
       <SectionHeader
+        id="home-platform"
         eyebrow="Platform"
         title="让 AI 真正进入高校日常任务，而不是停留在聊天窗口"
         desc="QeEdu 把高校事务拆成知识、模板、角色、流程和交付结果。它不是要求学校换掉 OA、教务或学工系统，而是在这些系统之外提供轻量的 AI 生产力入口。"
@@ -1076,7 +1089,7 @@ function Home() {
         </div>
       </section>
 
-      <EditionCards />
+      <EditionCards id="home-editions" />
 
       <ComparisonSection />
 
@@ -1108,6 +1121,55 @@ function Home() {
 
       <CallToAction />
     </>
+  )
+}
+
+function HomeSectionNav() {
+  const [activeId, setActiveId] = useState(homeAnchors[0].id)
+
+  useEffect(() => {
+    function onScroll() {
+      let current = homeAnchors[0].id
+
+      for (const anchor of homeAnchors) {
+        const element = document.getElementById(anchor.id)
+
+        if (element && element.getBoundingClientRect().top <= 128) {
+          current = anchor.id
+        }
+      }
+
+      setActiveId(current)
+    }
+
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  }, [])
+
+  function scrollToSection(id: string) {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
+  return (
+    <nav className="home-section-nav" aria-label="首页章节导航">
+      {homeAnchors.map((anchor, index) => (
+        <button
+          aria-current={anchor.id === activeId ? 'true' : undefined}
+          className={anchor.id === activeId ? 'active' : ''}
+          key={anchor.id}
+          type="button"
+          onClick={() => scrollToSection(anchor.id)}
+        >
+          <span>{String(index + 1).padStart(2, '0')}</span>
+          {anchor.label}
+        </button>
+      ))}
+    </nav>
   )
 }
 
@@ -1245,7 +1307,7 @@ function AgentOrchestrationLab() {
   }
 
   return (
-    <section className="orchestration-section">
+    <section className="orchestration-section" id="home-agents">
       <div className="orchestration-copy">
         <p className="eyebrow">Agent Orchestration</p>
         <h2>把一次校园任务拆成可追踪的多智能体运行过程</h2>
@@ -1377,7 +1439,7 @@ function CampusWorkbenchDemo() {
   }
 
   return (
-    <section className="workbench-section">
+    <section className="workbench-section" id="home-workbench">
       <div className="workbench-copy">
         <p className="eyebrow">Product Workbench</p>
         <h2>直接把 edu-ai 的真实模块变成可演示的校园智能体工作台</h2>
@@ -1487,7 +1549,7 @@ function DemoShowcaseSection() {
   const active = demoStages[activeIndex]
 
   return (
-    <section className="demo-showcase-section">
+    <section className="demo-showcase-section" id="home-demo">
       <div className="demo-copy">
         <p className="eyebrow">Live Demo Narrative</p>
         <h2>首页直接展示 QeEdu 如何把一句需求变成可复核结果</h2>
@@ -1544,9 +1606,9 @@ function DemoShowcaseSection() {
   )
 }
 
-function SectionHeader({ eyebrow, title, desc }: { eyebrow: string; title: string; desc: string }) {
+function SectionHeader({ eyebrow, title, desc, id }: { eyebrow: string; title: string; desc: string; id?: string }) {
   return (
-    <section className="section-header">
+    <section className="section-header" id={id}>
       <p className="eyebrow">{eyebrow}</p>
       <h2>{title}</h2>
       <p>{desc}</p>
@@ -1556,7 +1618,7 @@ function SectionHeader({ eyebrow, title, desc }: { eyebrow: string; title: strin
 
 function RoleScenarioSection() {
   return (
-    <section className="role-section">
+    <section className="role-section" id="home-roles">
       <SectionHeader
         eyebrow="Roles"
         title="把“全角色”落到可解释的辅助任务"
@@ -1584,7 +1646,7 @@ function RoleScenarioSection() {
 
 function InternationalFlowSection() {
   return (
-    <section className="international-flow-section">
+    <section className="international-flow-section" id="home-flow">
       <div className="flow-copy">
         <p className="eyebrow">Flagship Workflow</p>
         <h2>用助国际打穿一个真实高校流程</h2>
@@ -1718,9 +1780,9 @@ function FaqSection() {
   )
 }
 
-function EditionCards() {
+function EditionCards({ id = 'editions' }: { id?: string }) {
   return (
-    <section className="edition-grid" id="editions">
+    <section className="edition-grid" id={id}>
       {editions.map((edition) => (
         <article className={edition.highlight ? 'edition-card highlighted' : 'edition-card'} key={edition.name}>
           <div className="edition-icon">
