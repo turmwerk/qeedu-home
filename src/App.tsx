@@ -35,6 +35,15 @@ import './styles.css'
 
 type IconComponent = React.ComponentType<{ size?: number }>
 
+type PageDemo = {
+  label: string
+  headline: string
+  tone: 'product' | 'scenarios' | 'education' | 'security' | 'pricing' | 'community' | 'cloud'
+  signals: string[]
+  lanes: Array<{ title: string; detail: string; icon: IconComponent }>
+  metrics: Array<{ value: string; label: string }>
+}
+
 const cloudUrl = 'https://cloud.qeedu.tech'
 const docsUrl = 'https://docs.qeedu.tech'
 const githubUrl = 'https://github.com/turmwerk/qeedu'
@@ -577,6 +586,128 @@ const servicePacks: Array<{ title: string; desc: string; icon: IconComponent }> 
     icon: LineChart,
   },
 ]
+
+const pageDemos: Record<string, PageDemo> = {
+  product: {
+    label: 'Product Console',
+    headline: '多智能体校园工作台',
+    tone: 'product',
+    signals: ['校本知识库', '智能体编排', '结构化输出'],
+    lanes: [
+      { title: '接入任务', detail: '自然语言、文件、模板入口', icon: TerminalSquare },
+      { title: '检索校本资料', detail: '制度、课程、案例和 FAQ', icon: DatabaseZap },
+      { title: '组织智能体', detail: '检索、生成、校验、导出', icon: Workflow },
+      { title: '交付成果', detail: '清单、邮件、文档、表格', icon: FileText },
+    ],
+    metrics: [
+      { value: '5', label: '工作台模块' },
+      { value: '4', label: '处理节点' },
+      { value: 'N', label: '模板扩展' },
+    ],
+  },
+  scenarios: {
+    label: 'Scenario Map',
+    headline: '高频校园任务演示台',
+    tone: 'scenarios',
+    signals: ['教师', '学生', '学工', '行政'],
+    lanes: [
+      { title: '选择角色', detail: '匹配真实校园入口', icon: Users },
+      { title: '挑选任务', detail: '通知、课程、事务、科研', icon: ClipboardList },
+      { title: '生成草稿', detail: '按场景输出不同形态', icon: WandSparkles },
+      { title: '复用模板', detail: '沉淀为下一次流程', icon: Layers3 },
+    ],
+    metrics: [
+      { value: '6+', label: '核心场景' },
+      { value: '4', label: '角色入口' },
+      { value: '低风险', label: '试点原则' },
+    ],
+  },
+  education: {
+    label: 'Delivery Lab',
+    headline: '教育版交付指挥台',
+    tone: 'education',
+    signals: ['私有化部署', '知识库初始化', '培训运营'],
+    lanes: [
+      { title: '确认试点边界', detail: '部门、场景、数据级别', icon: Building2 },
+      { title: '部署基础服务', detail: '域名、网关、存储、模型', icon: Server },
+      { title: '初始化知识库', detail: '制度、模板、FAQ、案例', icon: BookOpen },
+      { title: '运营复盘', detail: '使用数据和模板迭代', icon: LineChart },
+    ],
+    metrics: [
+      { value: '4', label: '交付包' },
+      { value: '私有化', label: '部署模式' },
+      { value: '可复盘', label: '运营目标' },
+    ],
+  },
+  security: {
+    label: 'Trust Center',
+    headline: '安全边界与审计视图',
+    tone: 'security',
+    signals: ['权限', '日志', '模型网关'],
+    lanes: [
+      { title: '数据分级', detail: '云端、团队、私有化边界', icon: LockKeyhole },
+      { title: '角色授权', detail: '教师、学生、管理员隔离', icon: UserCheck },
+      { title: '调用审计', detail: '知识、模型、导出可追踪', icon: Network },
+      { title: '人工确认', detail: '高风险结论不自动生效', icon: ShieldCheck },
+    ],
+    metrics: [
+      { value: '4', label: '安全层' },
+      { value: '审计', label: '默认留痕' },
+      { value: '可替换', label: '模型接入' },
+    ],
+  },
+  pricing: {
+    label: 'Business Model',
+    headline: '三层版本商业化路径',
+    tone: 'pricing',
+    signals: ['Community', 'Cloud', 'Education'],
+    lanes: [
+      { title: '开源共建', detail: '建立可信开发者入口', icon: Github },
+      { title: '云端试用', detail: '承接演示和轻量订阅', icon: Cloud },
+      { title: '校园交付', detail: '私有化与模板服务包', icon: School },
+      { title: '持续运营', detail: '场景模板和复盘服务', icon: LineChart },
+    ],
+    metrics: [
+      { value: '3', label: '版本路线' },
+      { value: '订阅', label: '云端收入' },
+      { value: '服务', label: '教育版收入' },
+    ],
+  },
+  community: {
+    label: 'Community Build',
+    headline: '开源自部署体验路径',
+    tone: 'community',
+    signals: ['GitHub', 'Docs', '自部署'],
+    lanes: [
+      { title: '拉取仓库', detail: '前端、后端、文档协同', icon: Github },
+      { title: '配置模型', detail: '本地或第三方模型网关', icon: Sparkles },
+      { title: '导入模板', detail: '校园样例和知识片段', icon: BookOpen },
+      { title: '反馈共建', detail: 'Issue、PR、模板贡献', icon: Boxes },
+    ],
+    metrics: [
+      { value: '免费', label: '自部署' },
+      { value: '开源', label: '共建方式' },
+      { value: '文档', label: '启动入口' },
+    ],
+  },
+  cloud: {
+    label: 'Cloud Trial',
+    headline: '在线试用与团队空间',
+    tone: 'cloud',
+    signals: ['托管应用', '团队空间', '模板市场'],
+    lanes: [
+      { title: '注册进入', detail: '快速体验核心工作流', icon: Cloud },
+      { title: '创建空间', detail: '团队模板和成员协作', icon: Users },
+      { title: '运行样例', detail: '课程、事务、国际交流', icon: Sparkles },
+      { title: '导出演示', detail: '比赛和试点材料沉淀', icon: FileText },
+    ],
+    metrics: [
+      { value: '托管', label: '无需运维' },
+      { value: '协作', label: '团队空间' },
+      { value: '演示', label: '快速闭环' },
+    ],
+  },
+}
 
 function Layout() {
   return (
@@ -1512,6 +1643,7 @@ function ProductPage() {
       eyebrow="Product"
       title="从聊天到工作流，再到校园智能体"
       desc="QeEdu 的核心不是单个聊天机器人，而是面向高校任务的智能体构建、知识检索、内容生成和结果交付。"
+      demo={pageDemos.product}
     >
       <section className="capability-list">
         {productCapabilities.map(({ title, desc, icon: Icon }) => (
@@ -1549,6 +1681,7 @@ function ScenariosPage() {
       eyebrow="Scenarios"
       title="高频、低风险、可验证的校园 AI 辅助场景"
       desc="QeEdu 的场景展示应先证明“有用”，再谈“全角色、全场景”。这些场景适合做比赛演示和小范围试点。"
+      demo={pageDemos.scenarios}
     >
       <RoleScenarioSection />
       <section className="scenario-detail-grid">
@@ -1566,11 +1699,13 @@ function ScenariosPage() {
 
 function EditionPage({ edition }: { edition: 'Community' | 'Cloud' }) {
   const current = editions.find((item) => item.name === edition)!
+  const demo = edition === 'Community' ? pageDemos.community : pageDemos.cloud
   return (
     <PageShell
       eyebrow="Edition"
       title={`QeEdu ${current.name}`}
       desc={current.desc}
+      demo={demo}
     >
       <section className="detail-grid">
         {current.points.map((point) => (
@@ -1591,6 +1726,7 @@ function EducationPage() {
       eyebrow="Education"
       title="教育版面向院系试点、创新创业平台和私有化部署"
       desc="教育版不是简单卖账号，而是把部署、知识库初始化、场景模板、权限与培训作为交付包。"
+      demo={pageDemos.education}
     >
       <section className="detail-grid">
         {[
@@ -1632,6 +1768,7 @@ function SecurityPage() {
       eyebrow="Security"
       title="围绕高校数据安全设计部署和使用边界"
       desc="QeEdu 的安全叙事应当落在数据隔离、权限控制、日志审计、模型配置和私有化部署上，而不是泛泛承诺。"
+      demo={pageDemos.security}
     >
       <section className="detail-grid">
         {securityItems.map(({ title, desc, icon: Icon }) => (
@@ -1653,6 +1790,7 @@ function PricingPage() {
       eyebrow="Plans"
       title="用 Community、Cloud、Education 三层讲清商业模式"
       desc="比赛展示时可以先展示规划，不需要假装已经具备完整企业版能力。关键是路线可信、边界清晰。"
+      demo={pageDemos.pricing}
     >
       <EditionCards />
     </PageShell>
@@ -1663,11 +1801,13 @@ function PageShell({
   eyebrow,
   title,
   desc,
+  demo,
   children,
 }: {
   eyebrow: string
   title: string
   desc: string
+  demo: PageDemo
   children: React.ReactNode
 }) {
   return (
@@ -1678,27 +1818,55 @@ function PageShell({
           <h1>{title}</h1>
           <p>{desc}</p>
         </div>
-        <div className="page-hero__visual" aria-hidden="true">
-          <div className="page-hero__screen">
-            <span>{eyebrow}</span>
-            <strong>QeEdu Flow</strong>
-            <div>
-              <i />
-              <i />
-              <i />
-              <i />
-            </div>
-          </div>
-          <div className="page-hero__orbit">
-            <span />
-            <span />
-            <span />
-          </div>
-        </div>
+        <PageHeroVisual demo={demo} />
       </section>
       {children}
       <CallToAction />
     </main>
+  )
+}
+
+function PageHeroVisual({ demo }: { demo: PageDemo }) {
+  return (
+    <div className={`page-hero__visual tone-${demo.tone}`} aria-hidden="true">
+      <div className="page-hero__screen">
+        <div className="page-hero__topline">
+          <span>{demo.label}</span>
+          <strong>Live</strong>
+        </div>
+        <h2>{demo.headline}</h2>
+        <div className="page-hero__signals">
+          {demo.signals.map((signal) => (
+            <span key={signal}>{signal}</span>
+          ))}
+        </div>
+        <div className="page-hero__lanes">
+          {demo.lanes.map((lane, index) => (
+            <article key={lane.title}>
+              <div>
+                <lane.icon size={16} />
+                <span>{String(index + 1).padStart(2, '0')}</span>
+              </div>
+              <strong>{lane.title}</strong>
+              <small>{lane.detail}</small>
+            </article>
+          ))}
+        </div>
+        <div className="page-hero__metrics">
+          {demo.metrics.map((metric) => (
+            <span key={metric.label}>
+              <strong>{metric.value}</strong>
+              {metric.label}
+            </span>
+          ))}
+        </div>
+      </div>
+      <div className="page-hero__orbit">
+        <span />
+        <span />
+        <span />
+      </div>
+    </div>
   )
 }
 
