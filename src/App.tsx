@@ -148,6 +148,104 @@ const demoStages = [
   },
 ]
 
+const campusWorkspaces: Array<{
+  key: string
+  title: string
+  subtitle: string
+  desc: string
+  icon: IconComponent
+  accent: 'mint' | 'blue' | 'violet' | 'amber' | 'coral'
+  modules: Array<{ title: string; desc: string; detail: string }>
+  run: string[]
+  artifact: string
+  metrics: string[]
+}> = [
+  {
+    key: 'international',
+    title: '助国际',
+    subtitle: '交换申请、派出支持、返校沉淀',
+    desc: '来自 edu-ai 的国际交流模块，覆盖项目中心、智能匹配、流程推进、双语沟通、行前行后支持。',
+    icon: School,
+    accent: 'blue',
+    modules: [
+      { title: '交换与访学项目中心', desc: '项目搜索、预览、比较托盘和流程联动。', detail: '项目目录 · 比较托盘 · 流程联动' },
+      { title: '智能项目匹配与申请决策', desc: '画像录入、推荐结果、比较矩阵和决策说明。', detail: 'GPA · 语言 · 预算 · 风险偏好' },
+      { title: '申请流程助手', desc: '阶段地图、任务清单、里程碑和风险提醒。', detail: '阶段地图 · 里程碑 · 补件提醒' },
+      { title: '多语言沟通与邮件助手', desc: '双语草稿、模板抽屉、发送前检查和沟通对话。', detail: '导师联系 · 住宿沟通 · 签证说明' },
+      { title: '回国与成果沉淀', desc: '学分认定、报销、归档、经验反思和结案。', detail: '学分认定 · 归档摘要 · FAQ 回流' },
+    ],
+    run: ['读取项目通知与校内规则', '匹配学生画像和项目门槛', '生成申请时间线和材料清单', '输出双语邮件并标记复核点'],
+    artifact: 'UBC 交换申请计划 · 材料清单 · 导师沟通邮件 · 学分认定风险说明',
+    metrics: ['9 个子模块', '4 类跨境材料', '全周期支持'],
+  },
+  {
+    key: 'teaching',
+    title: '助教',
+    subtitle: '课程建设、试卷设计、作业反馈',
+    desc: '面向教师的教学辅助模块，把大纲、题目、rubric 和反馈草稿组织成可复用教学流程。',
+    icon: GraduationCap,
+    accent: 'mint',
+    modules: [
+      { title: '大纲生成', desc: '匹配教学目标、学时结构和考核方式。', detail: '教学目标 · 学时结构 · 内容编排' },
+      { title: '试卷设计', desc: '组织题型结构、题目池和预览导出。', detail: '题型结构 · 难度分配 · 预览导出' },
+      { title: '作业批改与反馈', desc: '批改任务、rubric、反馈草稿和学生订正状态。', detail: '评分标准 · 反馈草稿 · 订正状态' },
+    ],
+    run: ['读取课程目标和教学周历', '生成章节目标与课堂活动', '构造题型比例和评分标准', '沉淀作业反馈模板'],
+    artifact: '课程大纲 · 单元教案 · 试卷结构 · Rubric 反馈草稿',
+    metrics: ['3 个教学工具', '覆盖课前课中课后', '支持模板复用'],
+  },
+  {
+    key: 'management',
+    title: '助管',
+    subtitle: '事务推进、通知公告、数据看板',
+    desc: '面向辅导员和行政人员，把事务流程、材料表单、学生问答和节点提醒放到一张工作台。',
+    icon: Building2,
+    accent: 'amber',
+    modules: [
+      { title: '事务处理助手', desc: '审批流程、材料清单和办理步骤自动整理。', detail: '流程图示 · 材料清单 · 联系方式' },
+      { title: '通知与公告生成', desc: '结构化输入、多渠道生成和继续对话润色。', detail: '结构化输入 · 多渠道生成 · 历史存档' },
+      { title: '材料与表单管理', desc: '统一管理提交材料、状态追踪和模板归档。', detail: '材料提交 · 状态追踪 · 批量导出' },
+      { title: '学生问答助手', desc: '高频问题回复、知识沉淀和答疑入口。', detail: '高频问题 · 智能回复 · 知识沉淀' },
+      { title: '时间节点管理', desc: 'DDL、面试与补件提醒统一编排。', detail: 'DDL 提醒 · 面试安排 · 补件通知' },
+    ],
+    run: ['识别办理事项和涉及角色', '生成通知、公示和 FAQ 草稿', '拆解材料清单和提醒节点', '汇总完成率与异常状态'],
+    artifact: '奖学金申报通知 · 办理流程图 · 材料清单 · 进度看板',
+    metrics: ['6 个管理模块', '多渠道公告', '节点闭环'],
+  },
+  {
+    key: 'research',
+    title: '助研',
+    subtitle: '文献检索、论文精读、写作推进',
+    desc: '面向科研任务，串联检索式、筛选记录、证据卡、章节树和投稿前检查。',
+    icon: BrainCircuit,
+    accent: 'violet',
+    modules: [
+      { title: '文献检索', desc: '检索式、筛选记录、主题聚类和论文移交。', detail: '查询构造 · 筛选记录 · 主题聚类' },
+      { title: '论文精读', desc: '论文队列、结构化阅读卡、证据摘录和写作移交。', detail: '结构化阅读 · 证据卡 · 对比队列' },
+      { title: '论文写作', desc: '章节树、正文草稿、模板插入、引用与里程碑。', detail: '章节树 · 引文组织 · 终检导出' },
+    ],
+    run: ['围绕研究问题构造检索式', '筛选论文并生成主题簇', '抽取方法、实验和局限证据', '回填到论文草稿章节树'],
+    artifact: '文献筛选表 · 结构化阅读卡 · 证据矩阵 · 摘要草稿',
+    metrics: ['3 个科研工具', '证据可追溯', '写作链路联动'],
+  },
+  {
+    key: 'study',
+    title: '助学',
+    subtitle: '资源包、进度雷达、生涯规划',
+    desc: '面向学生成长，把学院资源、培养方案、学分进度和职业目标拆成阶段性行动。',
+    icon: Users,
+    accent: 'coral',
+    modules: [
+      { title: '学科资源包', desc: '从学院、学科门类和招生专业类三条入口组织资源。', detail: '学院入口 · 学科地图 · 专业详情' },
+      { title: '学业进度雷达', desc: '围绕培养方案匹配、学分完成情况、风险课程和毕业偏离做持续诊断。', detail: '培养方案 · 学分进度 · 风险课程' },
+      { title: '智能生涯规划', desc: '通过对话梳理目标画像、大学阶段成长路径和关键节点。', detail: '目标画像 · 路径拆解 · 节点提醒' },
+    ],
+    run: ['读取培养方案和已修课程', '识别学分缺口与风险课程', '匹配学院资源和成长路径', '生成下一阶段行动计划'],
+    artifact: '学业雷达 · 课程风险提示 · 资源推荐 · 生涯行动表',
+    metrics: ['3 个学生入口', '阶段性复盘', '成长路径拆解'],
+  },
+]
+
 const metrics = [
   { value: '3', label: '版本路线', desc: 'Community、Cloud、Education' },
   { value: '6+', label: '高频场景', desc: '教学、学工、行政、科研、竞赛、就业' },
@@ -504,6 +602,8 @@ function Home() {
 
       <DemoShowcaseSection />
 
+      <CampusWorkbenchDemo />
+
       <SectionHeader
         eyebrow="Platform"
         title="让 AI 真正进入高校日常任务，而不是停留在聊天窗口"
@@ -683,6 +783,136 @@ function ProductConsole() {
         </div>
       </div>
     </div>
+  )
+}
+
+function CampusWorkbenchDemo() {
+  const [activeWorkspaceIndex, setActiveWorkspaceIndex] = useState(0)
+  const [activeModuleIndex, setActiveModuleIndex] = useState(0)
+  const workspace = campusWorkspaces[activeWorkspaceIndex]
+  const activeModule = workspace.modules[activeModuleIndex]
+  const runProgress = Math.min(activeModuleIndex, workspace.run.length - 1)
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveModuleIndex((index) => {
+        const next = index + 1
+
+        if (next < campusWorkspaces[activeWorkspaceIndex].modules.length) {
+          return next
+        }
+
+        setActiveWorkspaceIndex((workspaceIndex) => (workspaceIndex + 1) % campusWorkspaces.length)
+        return 0
+      })
+    }, 2400)
+
+    return () => window.clearInterval(timer)
+  }, [activeWorkspaceIndex])
+
+  function selectWorkspace(index: number) {
+    setActiveWorkspaceIndex(index)
+    setActiveModuleIndex(0)
+  }
+
+  function selectModule(index: number) {
+    setActiveModuleIndex(index)
+  }
+
+  return (
+    <section className="workbench-section">
+      <div className="workbench-copy">
+        <p className="eyebrow">Product Workbench</p>
+        <h2>直接把 edu-ai 的真实模块变成可演示的校园智能体工作台</h2>
+        <p>
+          首页不再只讲概念，而是用助国际、助教、助管、助研、助学五条产品线展示：
+          一个角色入口如何调用多个模块，最后生成可复核的校园交付物。
+        </p>
+      </div>
+
+      <div className={`workbench-shell accent-${workspace.accent}`} aria-label="QeEdu 校园智能体工作台演示">
+        <aside className="workbench-nav" aria-label="选择产品线">
+          {campusWorkspaces.map((item, index) => (
+            <button
+              className={index === activeWorkspaceIndex ? 'active' : ''}
+              key={item.key}
+              type="button"
+              onClick={() => selectWorkspace(index)}
+            >
+              <item.icon size={19} />
+              <span>
+                <strong>{item.title}</strong>
+                <small>{item.subtitle}</small>
+              </span>
+            </button>
+          ))}
+        </aside>
+
+        <div className="workbench-main">
+          <div className="workbench-toolbar">
+            <span className="live-dot" />
+            <strong>{workspace.title}</strong>
+            <span>{workspace.desc}</span>
+          </div>
+          <div className="workbench-canvas">
+            <div className="module-stack" aria-label={`${workspace.title} 模块列表`}>
+              {workspace.modules.map((module, index) => (
+                <button
+                  className={index === activeModuleIndex ? 'module-card current' : 'module-card'}
+                  key={module.title}
+                  type="button"
+                  onClick={() => selectModule(index)}
+                >
+                  <span className="module-index">{String(index + 1).padStart(2, '0')}</span>
+                  <strong>{module.title}</strong>
+                  <small>{module.desc}</small>
+                </button>
+              ))}
+            </div>
+
+            <div className="agent-run-panel">
+              <div className="agent-run-header">
+                <Sparkles size={18} />
+                <span>Agent Run</span>
+                <strong>{activeModule.detail}</strong>
+              </div>
+              <div className="agent-run-body" key={`${workspace.key}-${activeModule.title}`}>
+                {workspace.run.map((item, index) => (
+                  <div className={index <= runProgress ? 'is-done' : ''} key={item}>
+                    <span>{index + 1}</span>
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="artifact-panel">
+              <div className="artifact-header">
+                <FileText size={18} />
+                <span>Output</span>
+              </div>
+              <h3>{activeModule.title}</h3>
+              <p>{activeModule.desc}</p>
+              <strong>{workspace.artifact}</strong>
+            </div>
+          </div>
+        </div>
+
+        <aside className="workbench-insights" aria-label="演示指标">
+          <div className="insight-ring">
+            <span>{activeModuleIndex + 1}</span>
+            <small>/ {workspace.modules.length}</small>
+          </div>
+          <h3>{workspace.title} 正在编排</h3>
+          <p>{workspace.subtitle}</p>
+          <div>
+            {workspace.metrics.map((metric) => (
+              <span key={metric}>{metric}</span>
+            ))}
+          </div>
+        </aside>
+      </div>
+    </section>
   )
 }
 
