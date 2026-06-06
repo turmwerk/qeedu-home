@@ -984,6 +984,7 @@ function Home() {
     <>
       <HomeSectionNav />
       <section className="hero" id="home-hero">
+        <HeroDataflow />
         <div className="hero-ambient" aria-hidden="true">
           <span />
           <span />
@@ -1121,6 +1122,28 @@ function Home() {
 
       <CallToAction />
     </>
+  )
+}
+
+function HeroDataflow() {
+  return (
+    <div className="hero-dataflow" aria-hidden="true">
+      <div className="hero-dataflow__scan">
+        {['input', 'retrieval', 'agent', 'review', 'export'].map((item) => (
+          <span key={item}>{item}</span>
+        ))}
+      </div>
+      <div className="hero-dataflow__matrix">
+        {Array.from({ length: 24 }, (_, index) => (
+          <span key={`hero-matrix-${index}`} />
+        ))}
+      </div>
+      <div className="hero-dataflow__status">
+        <span>knowledge sync</span>
+        <span>agent run</span>
+        <span>human review</span>
+      </div>
+    </div>
   )
 }
 
