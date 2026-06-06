@@ -1,5 +1,6 @@
 import {
   ArrowRight,
+  ArrowUp,
   BookOpen,
   Boxes,
   BrainCircuit,
@@ -580,6 +581,7 @@ const servicePacks: Array<{ title: string; desc: string; icon: IconComponent }> 
 function Layout() {
   return (
     <div className="app">
+      <AmbientBackground />
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -593,6 +595,88 @@ function Layout() {
         <Route path="*" element={<Home />} />
       </Routes>
       <Footer />
+      <FloatingControls />
+    </div>
+  )
+}
+
+function AmbientBackground() {
+  return (
+    <div className="ambient-background" aria-hidden="true">
+      <div className="ambient-background__mesh">
+        {Array.from({ length: 18 }, (_, index) => (
+          <span key={`mesh-${index}`} />
+        ))}
+      </div>
+      <div className="ambient-background__ribbons">
+        <span />
+        <span />
+        <span />
+      </div>
+      <div className="ambient-background__snow">
+        {Array.from({ length: 26 }, (_, index) => (
+          <span key={`snow-${index}`} />
+        ))}
+      </div>
+      <div className="ambient-background__petals">
+        {Array.from({ length: 12 }, (_, index) => (
+          <span key={`petal-${index}`} />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function FloatingControls() {
+  const [atTop, setAtTop] = useState(true)
+  const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    function onScroll() {
+      setAtTop(window.scrollY < 80)
+    }
+
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const className = ['float-controls', atTop ? 'is-top-hidden' : '', open ? 'is-open' : ''].filter(Boolean).join(' ')
+
+  return (
+    <div className={className} aria-label="快捷控制">
+      <div className="float-controls__options">
+        <a className="float-controls__button float-controls__option" href={docsUrl} title="Docs" aria-label="打开 Docs">
+          <BookOpen size={18} />
+        </a>
+        <a className="float-controls__button float-controls__option" href={cloudUrl} title="Cloud" aria-label="打开 Cloud">
+          <Cloud size={18} />
+        </a>
+      </div>
+      <div className="float-controls__cluster">
+        <button
+          className="float-controls__button float-controls__settings"
+          type="button"
+          title="快捷入口"
+          aria-label="展开快捷入口"
+          onClick={() => setOpen((value) => !value)}
+        >
+          <Settings2 size={18} />
+        </button>
+        <button
+          className="float-controls__button float-controls__top"
+          type="button"
+          title="回到顶部"
+          aria-label="回到顶部"
+          onClick={scrollToTop}
+        >
+          <ArrowUp size={18} />
+        </button>
+      </div>
     </div>
   )
 }
@@ -1589,9 +1673,28 @@ function PageShell({
   return (
     <main className="page-shell">
       <section className="page-hero">
-        <p className="eyebrow">{eyebrow}</p>
-        <h1>{title}</h1>
-        <p>{desc}</p>
+        <div className="page-hero__copy">
+          <p className="eyebrow">{eyebrow}</p>
+          <h1>{title}</h1>
+          <p>{desc}</p>
+        </div>
+        <div className="page-hero__visual" aria-hidden="true">
+          <div className="page-hero__screen">
+            <span>{eyebrow}</span>
+            <strong>QeEdu Flow</strong>
+            <div>
+              <i />
+              <i />
+              <i />
+              <i />
+            </div>
+          </div>
+          <div className="page-hero__orbit">
+            <span />
+            <span />
+            <span />
+          </div>
+        </div>
       </section>
       {children}
       <CallToAction />
