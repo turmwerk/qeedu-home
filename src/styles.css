@@ -559,12 +559,20 @@ select {
   color: #40554d;
   font-size: 14px;
   font-weight: 650;
+  transition:
+    background 170ms ease,
+    color 170ms ease,
+    transform 170ms ease;
 }
 
 .nav-links a:hover,
 .nav-links a.active {
   background: #e5f4e7;
   color: #0d5f49;
+}
+
+.nav-links a:hover {
+  transform: translateY(-1px);
 }
 
 .header-actions {
@@ -574,6 +582,7 @@ select {
 .solid-button,
 .ghost-button {
   position: relative;
+  isolation: isolate;
   overflow: hidden;
   justify-content: center;
   gap: 8px;
@@ -582,12 +591,19 @@ select {
   border-radius: 8px;
   font-size: 14px;
   font-weight: 750;
+  white-space: nowrap;
   transition:
     transform 160ms ease,
     border-color 180ms ease,
     background 180ms ease,
     color 180ms ease,
     box-shadow 180ms ease;
+}
+
+.solid-button svg,
+.ghost-button svg {
+  flex: 0 0 auto;
+  transition: transform 180ms ease;
 }
 
 .solid-button {
@@ -615,8 +631,33 @@ select {
 .solid-button:hover,
 .ghost-button:hover {
   border-color: rgba(31, 196, 31, 0.5);
-  color: var(--site-accent);
   transform: translateY(-2px);
+}
+
+.solid-button:hover {
+  background: #083d31;
+  color: #b8ff5c;
+  box-shadow:
+    0 16px 38px rgba(8, 61, 49, 0.24),
+    0 0 0 5px rgba(31, 196, 31, 0.08);
+}
+
+.ghost-button:hover {
+  background: #050807;
+  color: #b8ff5c;
+  box-shadow:
+    0 14px 34px rgba(5, 22, 16, 0.16),
+    0 0 0 5px rgba(31, 196, 31, 0.06);
+}
+
+.solid-button:hover svg:last-child:not(:first-child),
+.ghost-button:hover svg:last-child:not(:first-child) {
+  transform: translateX(2px);
+}
+
+.solid-button:active,
+.ghost-button:active {
+  transform: translateY(0);
 }
 
 .solid-button:focus-visible,
@@ -1233,7 +1274,7 @@ select {
   grid-template-columns: minmax(0, 0.82fr) minmax(560px, 1.18fr);
   gap: 48px;
   align-items: center;
-  padding: 70px 0 14px;
+  padding: 56px 0 12px;
 }
 
 .demo-copy h2 {
@@ -1286,6 +1327,16 @@ select {
 .demo-stage-tabs button:hover {
   background: #ffffff;
   color: #0d5f49;
+  transform: translateY(-1px);
+}
+
+.demo-stage-tabs button:focus-visible,
+.workbench-nav button:focus-visible,
+.module-card:focus-visible,
+.run-selector button:focus-visible,
+.step-sequencer button:focus-visible {
+  outline: 2px solid rgba(31, 196, 31, 0.46);
+  outline-offset: -3px;
 }
 
 .demo-stage-tabs button span {
@@ -1434,7 +1485,7 @@ select {
 .workbench-section {
   width: min(1180px, calc(100% - 32px));
   margin: 0 auto;
-  padding: 68px 0 20px;
+  padding: 54px 0 16px;
 }
 
 .workbench-copy {
@@ -1887,7 +1938,7 @@ select {
 .orchestration-section {
   width: min(1180px, calc(100% - 32px));
   margin: 0 auto;
-  padding: 68px 0 24px;
+  padding: 54px 0 18px;
 }
 
 .orchestration-copy {
@@ -1954,6 +2005,7 @@ select {
 .run-selector button:hover {
   background: #ffffff;
   color: #0d5f49;
+  transform: translateY(-1px);
 }
 
 .run-selector button.active {
@@ -2673,7 +2725,7 @@ select {
 }
 
 .section-header {
-  padding: 74px 0 26px;
+  padding: 56px 0 22px;
   text-align: center;
 }
 
@@ -2700,7 +2752,7 @@ select {
 .service-pack-section p,
 .cta-section p,
 .page-hero p {
-  margin: 18px auto 0;
+  margin: 14px auto 0;
   max-width: 760px;
   color: #526a60;
   font-size: 17px;
@@ -2889,7 +2941,7 @@ select {
   grid-template-columns: minmax(0, 0.85fr) minmax(520px, 1.15fr);
   gap: 46px;
   align-items: center;
-  padding: 70px 0 24px;
+  padding: 54px 0 18px;
 }
 
 .international-flow-section {
@@ -2897,7 +2949,7 @@ select {
   grid-template-columns: minmax(0, 0.78fr) minmax(560px, 1.22fr);
   gap: 44px;
   align-items: start;
-  padding: 72px 0 28px;
+  padding: 56px 0 20px;
 }
 
 .flow-copy h2,
@@ -3082,7 +3134,7 @@ select {
   grid-template-columns: minmax(0, 0.95fr) minmax(360px, 1.05fr);
   gap: 44px;
   align-items: center;
-  padding: 72px 0 30px;
+  padding: 56px 0 20px;
 }
 
 .split-section p {
@@ -3117,11 +3169,11 @@ select {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
-  padding: 42px 0 24px;
+  padding: 34px 0 20px;
 }
 
 .comparison-section {
-  padding: 58px 0 28px;
+  padding: 44px 0 20px;
 }
 
 .comparison-section > div:first-child {
@@ -3265,6 +3317,20 @@ select {
   margin-top: auto;
   color: #0d5f49;
   font-weight: 820;
+  transition:
+    color 170ms ease,
+    transform 170ms ease;
+}
+
+.card-link:hover,
+.text-link:hover {
+  color: #083d31;
+  transform: translateX(2px);
+}
+
+.card-link:hover svg,
+.text-link:hover svg {
+  transform: translateX(2px);
 }
 
 .highlighted .card-link {
@@ -3276,7 +3342,7 @@ select {
   grid-template-columns: minmax(0, 0.95fr) minmax(360px, 1.05fr);
   gap: 48px;
   align-items: start;
-  padding: 62px 0 32px;
+  padding: 48px 0 22px;
 }
 
 .deployment-copy p {
@@ -3321,7 +3387,7 @@ select {
   grid-template-columns: minmax(0, 0.85fr) minmax(520px, 1.15fr);
   gap: 46px;
   align-items: start;
-  padding: 58px 0 30px;
+  padding: 44px 0 20px;
 }
 
 .roadmap-copy p {
@@ -3356,7 +3422,7 @@ select {
   grid-template-columns: minmax(0, 0.72fr) minmax(520px, 1.28fr);
   gap: 42px;
   align-items: start;
-  padding: 46px 0 20px;
+  padding: 38px 0 16px;
 }
 
 .faq-list {
@@ -3390,9 +3456,9 @@ select {
   align-items: center;
   justify-content: space-between;
   gap: 32px;
-  margin-top: 40px;
-  margin-bottom: 58px;
-  padding: 34px;
+  margin-top: 28px;
+  margin-bottom: 42px;
+  padding: 30px;
   border: 1px solid rgba(10, 85, 65, 0.14);
   border-radius: 8px;
   background:
