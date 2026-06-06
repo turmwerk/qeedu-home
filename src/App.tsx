@@ -30,7 +30,7 @@ import {
   Workflow,
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { Link, NavLink, Route, Routes } from 'react-router-dom'
+import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom'
 import './styles.css'
 
 type IconComponent = React.ComponentType<{ size?: number }>
@@ -794,23 +794,57 @@ const pageDemos: Record<string, PageDemo> = {
 }
 
 function Layout() {
+  const location = useLocation()
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [location.pathname])
+
   return (
     <div className="app">
       <AmbientBackground />
+      <ScrollProgress />
       <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/product" element={<ProductPage />} />
-        <Route path="/scenarios" element={<ScenariosPage />} />
-        <Route path="/community" element={<EditionPage edition="Community" />} />
-        <Route path="/cloud" element={<EditionPage edition="Cloud" />} />
-        <Route path="/education" element={<EducationPage />} />
-        <Route path="/security" element={<SecurityPage />} />
-        <Route path="/pricing" element={<PricingPage />} />
-        <Route path="*" element={<Home />} />
-      </Routes>
+      <div className="route-stage" key={location.pathname}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/product" element={<ProductPage />} />
+          <Route path="/scenarios" element={<ScenariosPage />} />
+          <Route path="/community" element={<EditionPage edition="Community" />} />
+          <Route path="/cloud" element={<EditionPage edition="Cloud" />} />
+          <Route path="/education" element={<EducationPage />} />
+          <Route path="/security" element={<SecurityPage />} />
+          <Route path="/pricing" element={<PricingPage />} />
+          <Route path="*" element={<Home />} />
+        </Routes>
+      </div>
       <Footer />
       <FloatingControls />
+    </div>
+  )
+}
+
+function ScrollProgress() {
+  const [progress, setProgress] = useState(0)
+
+  useEffect(() => {
+    function onScroll() {
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight
+      setProgress(maxScroll > 0 ? Math.min(100, Math.max(0, (window.scrollY / maxScroll) * 100)) : 0)
+    }
+
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  }, [])
+
+  return (
+    <div className="scroll-progress" aria-hidden="true">
+      <span style={{ width: `${progress}%` }} />
     </div>
   )
 }
