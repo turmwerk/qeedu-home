@@ -246,6 +246,101 @@ const campusWorkspaces: Array<{
   },
 ]
 
+const orchestrationRuns: Array<{
+  title: string
+  request: string
+  owner: string
+  badge: string
+  icon: IconComponent
+  sources: string[]
+  agents: Array<{ title: string; desc: string; icon: IconComponent }>
+  outputs: Array<{ title: string; value: string }>
+  audit: string[]
+  steps: Array<{ title: string; desc: string; channel: string; icon: IconComponent }>
+}> = [
+  {
+    title: '国际交换申请',
+    request: '帮 2026 春季 UBC 交换候选人生成申请计划，并标记需要老师确认的风险。',
+    owner: '学生 + 国际处老师',
+    badge: '助国际',
+    icon: School,
+    sources: ['国际处项目通知', '培养方案', '学分认定规则', '邮件模板'],
+    agents: [
+      { title: '资料读取智能体', desc: '提取时间、资格、材料和原文来源。', icon: DatabaseZap },
+      { title: '规划智能体', desc: '拆解申请动作、负责人和提醒节点。', icon: Workflow },
+      { title: '双语写作智能体', desc: '生成导师联系邮件和申请说明。', icon: FileText },
+      { title: '复核智能体', desc: '标记学分、资格、DDL 等高风险点。', icon: ShieldCheck },
+    ],
+    outputs: [
+      { title: '时间线', value: 'T-30 收集材料，T-14 院系审批，T-3 国际处提交' },
+      { title: '材料清单', value: '成绩单、语言证明、学习计划、推荐信、护照页' },
+      { title: '复核点', value: '学分认定、推荐信周期、语言成绩有效期' },
+    ],
+    audit: ['引用 8 条校本规则', '2 个节点需要人工确认', '导出 Markdown + 邮件草稿'],
+    steps: [
+      { title: '解析通知', desc: '从项目通知中提取截止时间、项目门槛和申请材料。', channel: 'Knowledge', icon: DatabaseZap },
+      { title: '匹配画像', desc: '结合年级、GPA、语言成绩和专业要求判断匹配度。', channel: 'Reasoning', icon: BrainCircuit },
+      { title: '编排行动', desc: '生成周计划、补件提醒、负责人和老师确认节点。', channel: 'Workflow', icon: Workflow },
+      { title: '输出草稿', desc: '整理成时间线、材料清单、双语邮件和风险摘要。', channel: 'Artifact', icon: FileText },
+      { title: '人工复核', desc: '高风险结论保留来源、置信度和编辑入口。', channel: 'Review', icon: ShieldCheck },
+    ],
+  },
+  {
+    title: '课程考试生成',
+    request: '基于人工智能导论第 6-8 周内容，生成一次 90 分钟闭卷考试方案。',
+    owner: '任课教师',
+    badge: '助教',
+    icon: GraduationCap,
+    sources: ['课程大纲', '章节课件', '往年题型', '评分 Rubric'],
+    agents: [
+      { title: '教学目标智能体', desc: '对齐知识点、能力目标和考核方式。', icon: BookOpen },
+      { title: '试题结构智能体', desc: '控制题型比例、难度分布和覆盖范围。', icon: ClipboardList },
+      { title: '评分智能体', desc: '生成参考答案、评分点和反馈模板。', icon: Check },
+      { title: '质量检查智能体', desc: '检查重复题、超纲点和表达歧义。', icon: ShieldCheck },
+    ],
+    outputs: [
+      { title: '试卷结构', value: '选择 20%，简答 30%，综合分析 50%' },
+      { title: '难度分布', value: '基础 40%，应用 40%，拓展 20%' },
+      { title: '质检结论', value: '2 道题建议降低术语密度，1 处需要补充评分点' },
+    ],
+    audit: ['覆盖 14 个知识点', '生成 3 版题目池', '保留教师最终编辑'],
+    steps: [
+      { title: '读取课程目标', desc: '识别章节目标、教学活动和知识点边界。', channel: 'Syllabus', icon: BookOpen },
+      { title: '生成题型蓝图', desc: '按考试时长和考核目标分配题型与分值。', channel: 'Blueprint', icon: ClipboardList },
+      { title: '创建题目池', desc: '生成可替换题目，并对齐知识点和难度。', channel: 'Generation', icon: Sparkles },
+      { title: '生成评分标准', desc: '输出参考答案、得分点和常见误区反馈。', channel: 'Rubric', icon: Check },
+      { title: '教师确认', desc: '标记超纲风险、重复题和人工编辑建议。', channel: 'Review', icon: ShieldCheck },
+    ],
+  },
+  {
+    title: '奖学金通知与进度',
+    request: '把学院奖学金申报安排拆成通知、公示材料清单和学生问答。',
+    owner: '辅导员 + 学院办公室',
+    badge: '助管',
+    icon: Building2,
+    sources: ['学院通知模板', '奖学金评审办法', '学生 FAQ', '历史公示材料'],
+    agents: [
+      { title: '流程梳理智能体', desc: '拆解申报、初审、公示和复议节点。', icon: Workflow },
+      { title: '公告生成智能体', desc: '生成官网、群公告和邮件版本。', icon: FileText },
+      { title: '问答智能体', desc: '沉淀资格、材料、时间和联系方式 FAQ。', icon: Users },
+      { title: '看板智能体', desc: '汇总提交状态、缺件和待处理提醒。', icon: LineChart },
+    ],
+    outputs: [
+      { title: '通知版本', value: '官网公告、班群短通知、邮件长说明' },
+      { title: '办理节点', value: '申报、资格初审、材料补正、结果公示、异议处理' },
+      { title: '看板字段', value: '提交状态、缺件类型、处理人、下一次提醒' },
+    ],
+    audit: ['生成 16 条 FAQ', '5 类材料被标准化', '补件提醒保留人工发送'],
+    steps: [
+      { title: '拆解政策', desc: '从评审办法中提取资格条件、材料和时间节点。', channel: 'Policy', icon: BookOpen },
+      { title: '生成公告', desc: '按官网、邮件、班群生成不同长度和语气版本。', channel: 'Writing', icon: FileText },
+      { title: '沉淀问答', desc: '把高频问题转成学生可检索 FAQ。', channel: 'FAQ', icon: Users },
+      { title: '配置节点', desc: '生成 DDL、补件提醒和负责人清单。', channel: 'Timeline', icon: ClipboardList },
+      { title: '汇总看板', desc: '输出完成率、缺件分布和异常状态。', channel: 'Dashboard', icon: LineChart },
+    ],
+  },
+]
+
 const metrics = [
   { value: '3', label: '版本路线', desc: 'Community、Cloud、Education' },
   { value: '6+', label: '高频场景', desc: '教学、学工、行政、科研、竞赛、就业' },
@@ -604,6 +699,8 @@ function Home() {
 
       <CampusWorkbenchDemo />
 
+      <AgentOrchestrationLab />
+
       <SectionHeader
         eyebrow="Platform"
         title="让 AI 真正进入高校日常任务，而不是停留在聊天窗口"
@@ -783,6 +880,133 @@ function ProductConsole() {
         </div>
       </div>
     </div>
+  )
+}
+
+function AgentOrchestrationLab() {
+  const [activeRunIndex, setActiveRunIndex] = useState(0)
+  const [activeStepIndex, setActiveStepIndex] = useState(0)
+  const run = orchestrationRuns[activeRunIndex]
+  const step = run.steps[activeStepIndex]
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveStepIndex((index) => {
+        const next = index + 1
+
+        if (next < orchestrationRuns[activeRunIndex].steps.length) {
+          return next
+        }
+
+        setActiveRunIndex((runIndex) => (runIndex + 1) % orchestrationRuns.length)
+        return 0
+      })
+    }, 2200)
+
+    return () => window.clearInterval(timer)
+  }, [activeRunIndex])
+
+  function selectRun(index: number) {
+    setActiveRunIndex(index)
+    setActiveStepIndex(0)
+  }
+
+  return (
+    <section className="orchestration-section">
+      <div className="orchestration-copy">
+        <p className="eyebrow">Agent Orchestration</p>
+        <h2>把一次校园任务拆成可追踪的多智能体运行过程</h2>
+        <p>
+          复杂动态演示的重点不是动效本身，而是让用户看懂：QeEdu 如何读取知识、调度智能体、
+          生成结果，并把高风险结论留给人工复核。
+        </p>
+      </div>
+
+      <div className="orchestration-lab" aria-label="QeEdu 智能体编排实验室">
+        <div className="run-selector" aria-label="选择演示任务">
+          {orchestrationRuns.map((item, index) => (
+            <button
+              className={index === activeRunIndex ? 'active' : ''}
+              key={item.title}
+              type="button"
+              onClick={() => selectRun(index)}
+            >
+              <item.icon size={19} />
+              <span>
+                <strong>{item.title}</strong>
+                <small>{item.owner}</small>
+              </span>
+            </button>
+          ))}
+        </div>
+
+        <div className="run-stage">
+          <div className="run-prompt">
+            <span>{run.badge}</span>
+            <h3>{run.request}</h3>
+            <p>{run.owner}</p>
+          </div>
+
+          <div className="agent-network">
+            <div className="source-cluster">
+              <strong>Knowledge Sources</strong>
+              {run.sources.map((source) => (
+                <span key={source}>{source}</span>
+              ))}
+            </div>
+            <div className="agent-lane">
+              {run.agents.map((agent, index) => (
+                <article className={index <= activeStepIndex ? 'active' : ''} key={agent.title}>
+                  <agent.icon size={20} />
+                  <h4>{agent.title}</h4>
+                  <p>{agent.desc}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div className="step-sequencer" aria-label="运行步骤">
+            {run.steps.map((item, index) => (
+              <button
+                className={index === activeStepIndex ? 'active' : index < activeStepIndex ? 'complete' : ''}
+                key={item.title}
+                type="button"
+                onClick={() => setActiveStepIndex(index)}
+              >
+                <span>{index + 1}</span>
+                {item.title}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <aside className="run-output-panel">
+          <div className="run-output-header">
+            <step.icon size={19} />
+            <span>{step.channel}</span>
+          </div>
+          <h3>{step.title}</h3>
+          <p>{step.desc}</p>
+          <div className="output-grid">
+            {run.outputs.map((output) => (
+              <article key={output.title}>
+                <strong>{output.title}</strong>
+                <span>{output.value}</span>
+              </article>
+            ))}
+          </div>
+          <div className="audit-log">
+            <strong>Audit Log</strong>
+            {run.audit.map((item) => (
+              <span key={item}>
+                <Check size={14} />
+                {item}
+              </span>
+            ))}
+          </div>
+        </aside>
+      </div>
+    </section>
   )
 }
 
