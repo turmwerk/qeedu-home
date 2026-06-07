@@ -34,6 +34,7 @@ import {
 import type { ComponentType, ReactNode } from 'react'
 import { useEffect, useState } from 'react'
 import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom'
+import { observeLocalization, siteLanguages, type SiteLanguage } from './i18n'
 import './styles.css'
 
 type IconComponent = ComponentType<{ size?: number }>
@@ -58,26 +59,27 @@ const cloudUrl = 'https://cloud.qeedu.tech'
 const docsUrl = 'https://docs.qeedu.tech'
 const githubUrl = 'https://github.com/turmwerk/qeedu'
 
-type FloatTheme = 'dark' | 'light'
+type SiteTheme = 'dark' | 'light'
 
-function readFloatTheme(): FloatTheme {
+function readSiteTheme(): SiteTheme {
   if (typeof window === 'undefined') return 'dark'
 
   try {
-    const saved = window.localStorage.getItem('qeedu-float-theme')
+    const saved = window.localStorage.getItem('qeedu-site-theme') || window.localStorage.getItem('qeedu-float-theme')
     return saved === 'light' || saved === 'dark' ? saved : 'dark'
   } catch {
     return 'dark'
   }
 }
 
-function readBackgroundMuted() {
-  if (typeof window === 'undefined') return false
+function readSiteLanguage(): SiteLanguage {
+  if (typeof window === 'undefined') return 'zh'
 
   try {
-    return window.localStorage.getItem('qeedu-background-muted') === '1'
+    const saved = window.localStorage.getItem('qeedu-language') || window.localStorage.getItem('locale')
+    return siteLanguages.some((language) => language.code === saved) ? (saved as SiteLanguage) : 'zh'
   } catch {
-    return false
+    return 'zh'
   }
 }
 
@@ -832,8 +834,8 @@ const pageDemos: Record<string, PageDemo> = {
 
 function Layout() {
   const location = useLocation()
-  const [floatTheme, setFloatTheme] = useState<FloatTheme>(readFloatTheme)
-  const [backgroundMuted, setBackgroundMuted] = useState(readBackgroundMuted)
+  const [siteTheme, setSiteTheme] = useState<SiteTheme>(readSiteTheme)
+  const [language, setLanguage] = useState<SiteLanguage>(readSiteLanguage)
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -841,17 +843,30 @@ function Layout() {
 
   useEffect(() => {
     try {
-      window.localStorage.setItem('qeedu-float-theme', floatTheme)
+      window.localStorage.setItem('qeedu-site-theme', siteTheme)
+      window.localStorage.setItem('qeedu-float-theme', siteTheme)
     } catch {}
-  }, [floatTheme])
+  }, [siteTheme])
 
   useEffect(() => {
-    try {
-      window.localStorage.setItem('qeedu-background-muted', backgroundMuted ? '1' : '0')
-    } catch {}
-  }, [backgroundMuted])
+    const selectedLanguage = siteLanguages.find((item) => item.code === language) || siteLanguages[0]
+    document.documentElement.lang = selectedLanguage.htmlLang
+    document.documentElement.dataset.language = language
+    document.documentElement.dataset.theme = siteTheme
+    document.title =
+      language === 'en'
+        ? 'QeEdu | AI-native agent platform for higher education'
+        : '启育 QeEdu | AI 原生智能体平台'
 
-  const appClassName = ['app', backgroundMuted ? 'is-background-muted' : ''].filter(Boolean).join(' ')
+    try {
+      window.localStorage.setItem('qeedu-language', language)
+      window.localStorage.setItem('locale', language)
+    } catch {}
+
+    return observeLocalization(language)
+  }, [language, location.pathname, siteTheme])
+
+  const appClassName = ['app', siteTheme === 'dark' ? 'is-dark' : 'is-light'].join(' ')
 
   return (
     <div className={appClassName}>
@@ -873,10 +888,10 @@ function Layout() {
       </div>
       <Footer />
       <FloatingControls
-        backgroundMuted={backgroundMuted}
-        floatTheme={floatTheme}
-        onToggleBackground={() => setBackgroundMuted((value) => !value)}
-        onToggleTheme={() => setFloatTheme((theme) => (theme === 'dark' ? 'light' : 'dark'))}
+        siteTheme={siteTheme}
+        language={language}
+        onToggleTheme={() => setSiteTheme((theme) => (theme === 'dark' ? 'light' : 'dark'))}
+        onSelectLanguage={setLanguage}
       />
     </div>
   )
@@ -921,18 +936,19 @@ function AmbientBackground() {
 }
 
 function FloatingControls({
-  backgroundMuted,
-  floatTheme,
-  onToggleBackground,
+  siteTheme,
+  language,
   onToggleTheme,
+  onSelectLanguage,
 }: {
-  backgroundMuted: boolean
-  floatTheme: FloatTheme
-  onToggleBackground: () => void
+  siteTheme: SiteTheme
+  language: SiteLanguage
   onToggleTheme: () => void
+  onSelectLanguage: (language: SiteLanguage) => void
 }) {
   const [atTop, setAtTop] = useState(true)
   const [open, setOpen] = useState(false)
+  const [languageOpen, setLanguageOpen] = useState(false)
 
   useEffect(() => {
     function onScroll() {
@@ -950,47 +966,59 @@ function FloatingControls({
 
   const className = [
     'float-controls',
-    `is-${floatTheme}`,
+    `is-${siteTheme}`,
     atTop ? 'is-top-hidden' : '',
     open ? 'is-open' : '',
   ]
     .filter(Boolean)
     .join(' ')
-  const backgroundButtonClassName = [
-    'float-controls__button',
-    'float-controls__option',
-    'float-controls__opt-background',
-    backgroundMuted ? 'is-active' : '',
-  ]
-    .filter(Boolean)
-    .join(' ')
+
+  function toggleOpen() {
+    if (open) setLanguageOpen(false)
+    setOpen((value) => !value)
+  }
 
   return (
     <div className={className} aria-label="快捷控制">
-      <a className="float-controls__button float-controls__option float-controls__opt-cloud" href={cloudUrl} title="Cloud" aria-label="打开 Cloud">
-        <Cloud size={18} />
-      </a>
-      <a className="float-controls__button float-controls__option float-controls__opt-docs" href={docsUrl} title="Docs" aria-label="打开 Docs">
-        <BookOpen size={18} />
-      </a>
+      <div className={['float-controls__langs', languageOpen ? 'is-open' : ''].filter(Boolean).join(' ')}>
+        {siteLanguages.map((item) => (
+          <button
+            key={item.code}
+            className={[
+              'float-controls__button',
+              'float-controls__lang',
+              language === item.code ? 'is-active' : '',
+            ]
+              .filter(Boolean)
+              .join(' ')}
+            type="button"
+            title={item.name}
+            aria-label={item.name}
+            aria-pressed={language === item.code}
+            onClick={() => onSelectLanguage(item.code)}
+          >
+            {item.label}
+          </button>
+        ))}
+      </div>
       <button
-        className={backgroundButtonClassName}
+        className="float-controls__button float-controls__option float-controls__opt-language"
         type="button"
-        title="弱化背景"
-        aria-label="弱化背景"
-        aria-pressed={backgroundMuted}
-        onClick={onToggleBackground}
+        title="Language"
+        aria-label="切换语言"
+        aria-expanded={languageOpen}
+        onClick={() => setLanguageOpen((value) => !value)}
       >
-        <WandSparkles size={18} />
+        <span className="float-controls__globe">Aa</span>
       </button>
       <button
         className="float-controls__button float-controls__option float-controls__opt-theme"
         type="button"
-        title="切换黑白按钮背景"
-        aria-label="切换黑白按钮背景"
+        title="切换浮动按钮明暗背景"
+        aria-label="切换明暗主题"
         onClick={onToggleTheme}
       >
-        {floatTheme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+        {siteTheme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
       </button>
       <button
         className="float-controls__button float-controls__settings"
@@ -998,7 +1026,7 @@ function FloatingControls({
         title="快捷入口"
         aria-label="展开快捷入口"
         aria-expanded={open}
-        onClick={() => setOpen((value) => !value)}
+        onClick={toggleOpen}
       >
         <Settings2 size={18} />
       </button>
