@@ -2041,6 +2041,7 @@ function PageShell({
 }) {
   return (
     <main className="page-shell">
+      <PageBackplane demo={demo} />
       <section className="page-hero">
         <div className="page-hero__copy">
           <p className="eyebrow">{eyebrow}</p>
@@ -2054,6 +2055,31 @@ function PageShell({
       {children}
       <CallToAction />
     </main>
+  )
+}
+
+function PageBackplane({ demo }: { demo: PageDemo }) {
+  const labels = [demo.label, ...demo.signals, ...demo.metrics.map((metric) => metric.label)].slice(0, 8)
+
+  return (
+    <div className={`page-backplane tone-${demo.tone}`} aria-hidden="true">
+      <div className="page-backplane__grid" />
+      <div className="page-backplane__ribbons">
+        {Array.from({ length: 6 }, (_, index) => (
+          <span key={`page-backplane-ribbon-${demo.tone}-${index}`} />
+        ))}
+      </div>
+      <div className="page-backplane__nodes">
+        {Array.from({ length: 24 }, (_, index) => (
+          <span key={`page-backplane-node-${demo.tone}-${index}`} />
+        ))}
+      </div>
+      <div className="page-backplane__chips">
+        {labels.map((label, index) => (
+          <span key={`${label}-${index}`}>{label}</span>
+        ))}
+      </div>
+    </div>
   )
 }
 
