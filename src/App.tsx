@@ -2077,6 +2077,17 @@ function PageShell({
           <p className="eyebrow">{eyebrow}</p>
           <h1>{title}</h1>
           <p>{desc}</p>
+          <div className="page-hero__actions">
+            <a className="solid-button" href={cloudUrl}>
+              <Cloud size={16} />
+              进入 Cloud
+              <ArrowRight size={16} />
+            </a>
+            <a className="ghost-button" href={docsUrl}>
+              <BookOpen size={16} />
+              阅读文档
+            </a>
+          </div>
         </div>
         <PageHeroVisual demo={demo} />
       </section>

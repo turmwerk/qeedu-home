@@ -4212,6 +4212,19 @@ select {
   margin-left: 0;
 }
 
+.page-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.page-hero__actions .solid-button,
+.page-hero__actions .ghost-button {
+  min-height: 42px;
+  padding-inline: 15px;
+}
+
 .page-hero__visual {
   --demo-accent: #1fc41f;
   --demo-accent-deep: #0d7d5f;
@@ -5712,12 +5725,14 @@ select {
   }
 
   .cta-actions,
-  .hero-actions {
+  .hero-actions,
+  .page-hero__actions {
     width: 100%;
   }
 
   .cta-actions a,
-  .hero-actions a {
+  .hero-actions a,
+  .page-hero__actions a {
     flex: 1;
   }
 
