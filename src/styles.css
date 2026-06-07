@@ -5477,6 +5477,10 @@ select {
     font-size: 11px;
   }
 
+  .page-backplane__chips {
+    display: none;
+  }
+
   .page-hero {
     padding: 36px 0 24px;
   }
@@ -5520,7 +5524,7 @@ select {
   }
 
   .page-hero h1 {
-    font-size: clamp(38px, 15vw, 58px);
+    font-size: clamp(36px, 13vw, 50px);
   }
 
   .page-hero__screen {
