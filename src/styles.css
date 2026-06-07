@@ -39,6 +39,12 @@ a {
   text-decoration: none;
 }
 
+.app svg {
+  display: block;
+  flex: 0 0 auto;
+  stroke-width: 2;
+}
+
 button,
 input,
 textarea,
@@ -483,6 +489,10 @@ select {
 }
 
 .nav-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1;
   padding: 8px 12px;
   border-radius: 8px;
   color: #40554d;
@@ -492,6 +502,22 @@ select {
     background 170ms ease,
     color 170ms ease,
     transform 170ms ease;
+}
+
+.nav-links a svg,
+.solid-button svg,
+.ghost-button svg,
+.pill svg,
+.eyebrow svg,
+.trust-row span svg,
+.home-section-nav button svg,
+.home-flow-strip__actions button svg,
+.step-sequencer button svg,
+.scenario-chip svg,
+.page-proof__checks svg,
+.audit-log svg {
+  width: 1.1em;
+  height: 1.1em;
 }
 
 .nav-links a:hover,
@@ -520,6 +546,7 @@ select {
   border-radius: 8px;
   font-size: 14px;
   font-weight: 750;
+  line-height: 1;
   white-space: nowrap;
   transition:
     transform 160ms ease,
@@ -834,15 +861,26 @@ select {
   color: #0d5f49;
   font-size: 13px;
   font-weight: 760;
+  line-height: 1.2;
 }
 
 .eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: fit-content;
   margin: 0 0 12px;
   color: #0d7d5f;
   font-size: 13px;
   font-weight: 820;
+  line-height: 1.2;
   letter-spacing: 0;
   text-transform: uppercase;
+}
+
+.section-header .eyebrow {
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .hero h1,
@@ -964,12 +1002,16 @@ select {
 }
 
 .trust-row span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   padding: 7px 10px;
   border: 1px solid rgba(10, 85, 65, 0.12);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.62);
   color: #526a60;
   font-size: 13px;
+  line-height: 1.2;
 }
 
 .console {
@@ -2522,7 +2564,7 @@ select {
 
 .audit-log span {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 8px;
   color: #526a60;
   font-size: 13px;
@@ -2530,8 +2572,6 @@ select {
 }
 
 .audit-log svg {
-  flex: 0 0 auto;
-  margin-top: 2px;
   color: #0d7d5f;
 }
 
@@ -3310,6 +3350,7 @@ select {
   display: flex;
   align-items: center;
   gap: 12px;
+  line-height: 1.2;
 }
 
 .role-card-head h3 {
@@ -3554,6 +3595,7 @@ select {
   background: #ffffff;
   color: #12352c;
   font-weight: 760;
+  line-height: 1.25;
 }
 
 .scenario-chip svg {
@@ -3690,6 +3732,7 @@ select {
 
 .edition-card li {
   display: flex;
+  align-items: flex-start;
   gap: 9px;
   color: #526a60;
   font-size: 14px;
@@ -3697,7 +3740,6 @@ select {
 }
 
 .edition-card li svg {
-  flex: 0 0 auto;
   margin-top: 2px;
   color: #0d7d5f;
 }
@@ -3713,6 +3755,7 @@ select {
   margin-top: auto;
   color: #0d5f49;
   font-weight: 820;
+  line-height: 1.2;
   transition:
     color 170ms ease,
     transform 170ms ease;
@@ -4858,6 +4901,10 @@ select {
   gap: 18px;
   align-items: flex-start;
   padding: 26px;
+}
+
+.wide-card > svg {
+  margin-top: 2px;
 }
 
 .wide-card h3 {
