@@ -5157,10 +5157,6 @@ select {
     inset: 16% 0 22% 8%;
   }
 
-  .hero-dataflow__matrix span:nth-child(n + 13) {
-    display: none;
-  }
-
   .brand small,
   .header-actions .ghost-button {
     display: none;
@@ -5170,6 +5166,7 @@ select {
   .ghost-button {
     min-height: 38px;
     padding-inline: 12px;
+    white-space: normal;
   }
 
   .hero,
@@ -5228,12 +5225,8 @@ select {
     min-height: 36px;
   }
 
-  .home-flow-strip__rail span:nth-child(n + 11) {
-    display: none;
-  }
-
   .workbench-section {
-    padding-top: 54px;
+    padding-top: 36px;
   }
 
   .workbench-copy p {
@@ -5241,7 +5234,7 @@ select {
   }
 
   .orchestration-section {
-    padding-top: 54px;
+    padding-top: 36px;
   }
 
   .orchestration-copy p {
@@ -5343,7 +5336,7 @@ select {
   }
 
   .hero {
-    padding-top: 42px;
+    padding-top: 34px;
   }
 
   .hero h1 {
@@ -5460,7 +5453,7 @@ select {
   }
 
   .section-header {
-    padding-top: 54px;
+    padding-top: 38px;
   }
 
   .page-shell {
@@ -5505,10 +5498,6 @@ select {
   .page-signal-rail__items,
   .page-signal-rail__metrics {
     grid-template-columns: 1fr;
-  }
-
-  .page-signal-rail__track span:nth-child(n + 9) {
-    display: none;
   }
 
   .page-proof__copy,
@@ -5590,6 +5579,7 @@ select {
   .hero-actions a,
   .page-hero__actions a {
     flex: 1;
+    min-width: 0;
   }
 
   .footer {
