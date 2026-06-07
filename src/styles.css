@@ -284,6 +284,8 @@ select {
 }
 
 .float-controls__button {
+  position: relative;
+  overflow: hidden;
   display: grid;
   width: 44px;
   height: 44px;
@@ -304,12 +306,35 @@ select {
   backdrop-filter: blur(16px) saturate(150%);
 }
 
+.float-controls__button::after {
+  position: absolute;
+  inset: 0 auto 0 -46%;
+  width: 34%;
+  background: linear-gradient(90deg, transparent, rgba(184, 255, 92, 0.2), transparent);
+  content: "";
+  pointer-events: none;
+  transform: skewX(-10deg);
+  transition: transform 260ms ease;
+}
+
 .float-controls__button:hover,
 .float-controls__button:focus-visible {
   border-color: rgba(31, 196, 31, 0.54);
   background: #050807;
   color: #b8ff5c;
+  box-shadow:
+    0 16px 38px rgba(5, 22, 16, 0.18),
+    0 0 0 5px rgba(31, 196, 31, 0.08);
   transform: translateY(-2px);
+}
+
+.float-controls__button:hover::after,
+.float-controls__button:focus-visible::after {
+  transform: translateX(430%) skewX(-10deg);
+}
+
+.float-controls__button:active {
+  transform: translateY(0) scale(0.96);
 }
 
 .float-controls__settings svg {
@@ -390,9 +415,12 @@ select {
   width: 1px;
   background: linear-gradient(180deg, transparent, rgba(31, 196, 31, 0.44), transparent);
   content: "";
+  animation: controlRailPulse 6.4s ease-in-out infinite;
 }
 
 .home-section-nav button {
+  position: relative;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   gap: 7px;
@@ -418,7 +446,20 @@ select {
   backdrop-filter: blur(15px) saturate(150%);
 }
 
+.home-section-nav button::after {
+  position: absolute;
+  inset: 0 auto 0 -44%;
+  width: 32%;
+  background: linear-gradient(90deg, transparent, rgba(184, 255, 92, 0.2), transparent);
+  content: "";
+  pointer-events: none;
+  transform: skewX(-10deg);
+  transition: transform 260ms ease;
+}
+
 .home-section-nav button span {
+  position: relative;
+  z-index: 1;
   color: rgba(13, 125, 95, 0.7);
   font-size: 11px;
   font-weight: 850;
@@ -432,6 +473,16 @@ select {
   color: #dfffd0;
   box-shadow: 0 16px 38px rgba(5, 22, 16, 0.16);
   transform: translateX(3px);
+}
+
+.home-section-nav button:hover::after,
+.home-section-nav button:focus-visible::after,
+.home-section-nav button.active::after {
+  transform: translateX(430%) skewX(-10deg);
+}
+
+.home-section-nav button:active {
+  transform: translateX(1px) scale(0.985);
 }
 
 .home-section-nav button:focus-visible {
@@ -2881,6 +2932,19 @@ select {
     opacity: 0.72;
     filter: saturate(1.18);
     transform: translateX(-50%) scaleX(1);
+  }
+}
+
+@keyframes controlRailPulse {
+  0%,
+  100% {
+    opacity: 0.28;
+    transform: scaleY(0.82);
+  }
+
+  48% {
+    opacity: 0.76;
+    transform: scaleY(1);
   }
 }
 
