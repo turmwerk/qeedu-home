@@ -29,11 +29,12 @@ import {
   WandSparkles,
   Workflow,
 } from 'lucide-react'
+import type { ComponentType, ReactNode } from 'react'
 import { useEffect, useState } from 'react'
 import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom'
 import './styles.css'
 
-type IconComponent = React.ComponentType<{ size?: number }>
+type IconComponent = ComponentType<{ size?: number }>
 
 type PageDemo = {
   label: string
@@ -56,23 +57,23 @@ const docsUrl = 'https://docs.qeedu.tech'
 const githubUrl = 'https://github.com/turmwerk/qeedu'
 
 const navItems = [
-  { label: '产品', href: '/product' },
-  { label: '场景', href: '/scenarios' },
-  { label: '方案', href: '/education' },
-  { label: '版本', href: '/pricing' },
-  { label: '安全', href: '/security' },
-  { label: '文档', href: docsUrl, external: true },
+  { label: '产品', href: '/product', icon: PanelsTopLeft },
+  { label: '场景', href: '/scenarios', icon: ClipboardList },
+  { label: '方案', href: '/education', icon: School },
+  { label: '版本', href: '/pricing', icon: Boxes },
+  { label: '安全', href: '/security', icon: ShieldCheck },
+  { label: '文档', href: docsUrl, external: true, icon: BookOpen },
 ]
 
 const homeAnchors = [
-  { id: 'home-hero', label: '首页' },
-  { id: 'home-demo', label: '演示' },
-  { id: 'home-workbench', label: '工作台' },
-  { id: 'home-agents', label: '编排' },
-  { id: 'home-platform', label: '平台' },
-  { id: 'home-roles', label: '角色' },
-  { id: 'home-flow', label: '流程' },
-  { id: 'home-editions', label: '版本' },
+  { id: 'home-hero', label: '首页', icon: Sparkles },
+  { id: 'home-demo', label: '演示', icon: PanelsTopLeft },
+  { id: 'home-workbench', label: '工作台', icon: Layers3 },
+  { id: 'home-agents', label: '编排', icon: Workflow },
+  { id: 'home-platform', label: '平台', icon: DatabaseZap },
+  { id: 'home-roles', label: '角色', icon: Users },
+  { id: 'home-flow', label: '流程', icon: ClipboardList },
+  { id: 'home-editions', label: '版本', icon: Boxes },
 ]
 
 const heroSlides = [
@@ -938,17 +939,20 @@ function Header() {
         </span>
       </Link>
       <nav className="nav-links" aria-label="主导航">
-        {navItems.map((item) =>
-          item.external ? (
+        {navItems.map((item) => {
+          const NavIcon = item.icon
+          return item.external ? (
             <a key={item.label} href={item.href}>
+              <NavIcon size={15} />
               {item.label}
             </a>
           ) : (
             <NavLink key={item.label} to={item.href}>
+              <NavIcon size={15} />
               {item.label}
             </NavLink>
-          ),
-        )}
+          )
+        })}
       </nav>
       <div className="header-actions">
         <a className="ghost-button" href={githubUrl}>
@@ -991,13 +995,23 @@ function Home() {
               <ArrowRight size={18} />
             </a>
             <a className="ghost-button large" href={docsUrl}>
+              <BookOpen size={18} />
               阅读文档
             </a>
           </div>
           <div className="trust-row">
-            <span>定位清晰</span>
-            <span>不替换校内系统</span>
-            <span>聚焦 AI 辅助与工作流生成</span>
+            <span>
+              <Check size={14} />
+              定位清晰
+            </span>
+            <span>
+              <ShieldCheck size={14} />
+              不替换校内系统
+            </span>
+            <span>
+              <Workflow size={14} />
+              聚焦 AI 辅助与工作流生成
+            </span>
           </div>
         </div>
         <ProductConsole />
@@ -1061,7 +1075,10 @@ function Home() {
 
       <section className="split-section">
         <div>
-          <p className="eyebrow">Use Cases</p>
+          <p className="eyebrow">
+            <ClipboardList size={15} />
+            Use Cases
+          </p>
           <h2>从“能演示”走向“能试点”的校园场景</h2>
           <p>
             商业化前提不是喊全校替换，而是先找到高频、低风险、可验证的辅助任务。QeEdu
@@ -1084,7 +1101,10 @@ function Home() {
 
       <section className="deployment-section">
         <div className="deployment-copy">
-          <p className="eyebrow">Private Deployment</p>
+          <p className="eyebrow">
+            <Server size={15} />
+            Private Deployment
+          </p>
           <h2>私有化部署不是口号，而是明确交付边界</h2>
           <p>
             面向高校的数据安全需求，教育版可以部署在学校服务器、私有云或专有云环境中，并按院系流程配置知识库、模型、权限和审计。
@@ -1155,6 +1175,7 @@ function HomeFlowStrip() {
         {homeAnchors.map((anchor, index) => (
           <button key={anchor.id} type="button" onClick={() => scrollToSection(anchor.id)}>
             <span>{String(index + 1).padStart(2, '0')}</span>
+            <anchor.icon size={15} />
             {anchor.label}
           </button>
         ))}
@@ -1205,6 +1226,7 @@ function HomeSectionNav() {
           onClick={() => scrollToSection(anchor.id)}
         >
           <span>{String(index + 1).padStart(2, '0')}</span>
+          <anchor.icon size={14} />
           {anchor.label}
         </button>
       ))}
@@ -2053,7 +2075,7 @@ function PageShell({
   title: string
   desc: string
   demo: PageDemo
-  children: React.ReactNode
+  children: ReactNode
 }) {
   return (
     <main className="page-shell">
