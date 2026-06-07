@@ -863,25 +863,11 @@ function ScrollProgress() {
 function AmbientBackground() {
   return (
     <div className="ambient-background" aria-hidden="true">
-      <div className="ambient-background__mesh">
-        {Array.from({ length: 18 }, (_, index) => (
-          <span key={`mesh-${index}`} />
-        ))}
-      </div>
+      <div className="ambient-background__wash" />
       <div className="ambient-background__ribbons">
         <span />
         <span />
         <span />
-      </div>
-      <div className="ambient-background__snow">
-        {Array.from({ length: 26 }, (_, index) => (
-          <span key={`snow-${index}`} />
-        ))}
-      </div>
-      <div className="ambient-background__petals">
-        {Array.from({ length: 12 }, (_, index) => (
-          <span key={`petal-${index}`} />
-        ))}
       </div>
     </div>
   )
