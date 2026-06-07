@@ -1041,6 +1041,8 @@ function Home() {
         </div>
       </section>
 
+      <HomeFlowStrip />
+
       <DemoShowcaseSection />
 
       <CampusWorkbenchDemo />
@@ -1144,6 +1146,34 @@ function HeroDataflow() {
         <span>human review</span>
       </div>
     </div>
+  )
+}
+
+function HomeFlowStrip() {
+  function scrollToSection(id: string) {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
+  return (
+    <section className="home-flow-strip" aria-label="首页阅读路径">
+      <div className="home-flow-strip__rail" aria-hidden="true">
+        {Array.from({ length: 18 }, (_, index) => (
+          <span key={`home-flow-node-${index}`} />
+        ))}
+      </div>
+      <div className="home-flow-strip__copy">
+        <span>Flow Path</span>
+        <strong>从定位、演示到版本路线，一屏一层推进</strong>
+      </div>
+      <div className="home-flow-strip__actions">
+        {homeAnchors.map((anchor, index) => (
+          <button key={anchor.id} type="button" onClick={() => scrollToSection(anchor.id)}>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            {anchor.label}
+          </button>
+        ))}
+      </div>
+    </section>
   )
 }
 
