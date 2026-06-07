@@ -1122,8 +1122,8 @@ function Home() {
 
       <section className="marquee-section" aria-label="动态能力">
         <div className="marquee-track">
-          {[...scenarios, ...scenarios].map((item, index) => (
-            <span key={`${item}-${index}`}>{item}</span>
+          {scenarios.map((item) => (
+            <span key={item}>{item}</span>
           ))}
         </div>
       </section>
@@ -1313,40 +1313,14 @@ function HomeSectionNav() {
 
 function RotatingMessages() {
   const [slideIndex, setSlideIndex] = useState(0)
-  const [visibleText, setVisibleText] = useState('')
-  const [mode, setMode] = useState<'typing' | 'holding' | 'deleting'>('typing')
 
   useEffect(() => {
-    const currentTitle = heroSlides[slideIndex].title
-    const delay = mode === 'holding' ? 1300 : mode === 'deleting' ? 22 : 54
-
-    const timer = window.setTimeout(() => {
-      if (mode === 'typing') {
-        if (visibleText.length < currentTitle.length) {
-          setVisibleText(currentTitle.slice(0, visibleText.length + 1))
-          return
-        }
-
-        setMode('holding')
-        return
-      }
-
-      if (mode === 'holding') {
-        setMode('deleting')
-        return
-      }
-
-      if (visibleText.length > 0) {
-        setVisibleText(currentTitle.slice(0, visibleText.length - 1))
-        return
-      }
-
+    const timer = window.setInterval(() => {
       setSlideIndex((index) => (index + 1) % heroSlides.length)
-      setMode('typing')
-    }, delay)
+    }, 4800)
 
-    return () => window.clearTimeout(timer)
-  }, [mode, slideIndex, visibleText])
+    return () => window.clearInterval(timer)
+  }, [])
 
   const activeSlide = heroSlides[slideIndex]
 
@@ -1358,10 +1332,7 @@ function RotatingMessages() {
         <span className="terminal-dot" />
         <span className="terminal-label">QeEdu positioning</span>
       </div>
-      <h2>
-        {visibleText}
-        <span className="typing-cursor" aria-hidden="true" />
-      </h2>
+      <h2 key={activeSlide.title}>{activeSlide.title}</h2>
       <p key={activeSlide.text}>{activeSlide.text}</p>
       <div className="typewriter-dots" aria-hidden="true">
         {heroSlides.map((slide, index) => (
@@ -1460,7 +1431,7 @@ function AgentOrchestrationLab() {
         setActiveRunIndex((runIndex) => (runIndex + 1) % orchestrationRuns.length)
         return 0
       })
-    }, 2200)
+    }, 3600)
 
     return () => window.clearInterval(timer)
   }, [activeRunIndex])
@@ -1588,7 +1559,7 @@ function CampusWorkbenchDemo() {
         setActiveWorkspaceIndex((workspaceIndex) => (workspaceIndex + 1) % campusWorkspaces.length)
         return 0
       })
-    }, 2400)
+    }, 3800)
 
     return () => window.clearInterval(timer)
   }, [activeWorkspaceIndex])
@@ -1705,7 +1676,7 @@ function DemoShowcaseSection() {
   useEffect(() => {
     const timer = window.setInterval(() => {
       setActiveIndex((index) => (index + 1) % demoStages.length)
-    }, 2600)
+    }, 4200)
 
     return () => window.clearInterval(timer)
   }, [])
