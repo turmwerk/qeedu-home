@@ -131,116 +131,166 @@ select {
   width: 54vw;
 }
 
+.app.is-background-muted .ambient-background__wash {
+  opacity: 0.38;
+}
+
+.app.is-background-muted .ambient-background__ribbons {
+  opacity: 0;
+  visibility: hidden;
+}
+
 .float-controls {
   position: fixed;
-  right: max(14px, calc((100vw - 1180px) / 2 - 70px));
-  bottom: 24px;
-  z-index: 25;
-  display: grid;
-  gap: 9px;
+  right: max(4px, calc((100vw - 1180px) / 2 - 72px));
+  bottom: 20px;
+  z-index: 80;
+  width: 48px;
   pointer-events: none;
-}
-
-.float-controls__cluster,
-.float-controls__options {
-  display: grid;
-  gap: 9px;
-}
-
-.float-controls__options {
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(8px);
-  visibility: hidden;
-  transition:
-    max-height 220ms ease,
-    opacity 180ms ease,
-    transform 180ms ease,
-    visibility 180ms ease;
-}
-
-.float-controls.is-open .float-controls__options {
-  max-height: 150px;
-  opacity: 1;
-  transform: translateY(0);
-  visibility: visible;
 }
 
 .float-controls__button {
-  position: relative;
-  overflow: hidden;
-  display: grid;
+  position: absolute;
+  right: 0;
+  display: inline-grid;
   width: 44px;
   height: 44px;
   place-items: center;
-  border: 1px solid rgba(5, 22, 16, 0.12);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.82);
-  color: #0d5f49;
-  box-shadow: 0 14px 36px rgba(5, 22, 16, 0.11);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  background: rgba(10, 10, 10, 0.84);
+  color: #e5efe8;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.36);
   cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
   pointer-events: auto;
   transition:
-    transform 170ms ease,
-    color 170ms ease,
-    border-color 170ms ease,
-    background 170ms ease,
-    opacity 170ms ease;
-  backdrop-filter: blur(16px) saturate(150%);
+    bottom 200ms ease,
+    transform 160ms ease,
+    opacity 180ms ease,
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+  backdrop-filter: blur(16px) saturate(180%);
 }
 
-.float-controls__button::after {
-  position: absolute;
-  inset: 0 auto 0 -46%;
-  width: 34%;
-  background: linear-gradient(90deg, transparent, rgba(184, 255, 92, 0.2), transparent);
-  content: "";
-  pointer-events: none;
-  transform: skewX(-10deg);
-  transition: transform 260ms ease;
+.float-controls.is-light .float-controls__button {
+  border-color: rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.9);
+  color: #050807;
+  box-shadow: 0 4px 16px rgba(5, 22, 16, 0.12);
 }
 
 .float-controls__button:hover,
 .float-controls__button:focus-visible {
-  border-color: rgba(31, 196, 31, 0.54);
-  background: #050807;
-  color: #b8ff5c;
-  box-shadow:
-    0 16px 38px rgba(5, 22, 16, 0.18),
-    0 0 0 5px rgba(31, 196, 31, 0.08);
-  transform: translateY(-2px);
-}
-
-.float-controls__button:hover::after,
-.float-controls__button:focus-visible::after {
-  transform: translateX(430%) skewX(-10deg);
+  border-color: #1fc41f;
+  color: #1fc41f;
+  outline: none;
+  transform: translateY(-1px);
 }
 
 .float-controls__button:active {
   transform: translateY(0) scale(0.96);
 }
 
+.float-controls__button.is-active {
+  border-color: rgba(31, 196, 31, 0.58);
+  background: rgba(31, 196, 31, 0.14);
+  color: #1fc41f;
+}
+
+.float-controls.is-light .float-controls__button.is-active {
+  background: rgba(31, 196, 31, 0.1);
+}
+
+.float-controls__top {
+  bottom: 0;
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.float-controls.is-top-hidden .float-controls__top {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(6px) scale(0.92);
+}
+
+.float-controls__settings {
+  bottom: 50px;
+  border-color: rgba(31, 196, 31, 0.18);
+  background: rgba(10, 10, 10, 0.76);
+  box-shadow:
+    0 10px 34px rgba(0, 0, 0, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.float-controls.is-light .float-controls__settings {
+  border-color: rgba(255, 255, 255, 0.68);
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow:
+    0 8px 28px rgba(26, 158, 26, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.76);
+}
+
+.float-controls.is-top-hidden .float-controls__settings {
+  bottom: 0;
+}
+
 .float-controls__settings svg {
-  transition: transform 220ms ease;
+  transition: transform 180ms ease;
 }
 
 .float-controls.is-open .float-controls__settings svg {
   transform: rotate(74deg);
 }
 
-.float-controls__top {
-  transition:
-    transform 170ms ease,
-    opacity 170ms ease,
-    visibility 170ms ease;
-}
-
-.float-controls.is-top-hidden .float-controls__top {
+.float-controls__option {
   opacity: 0;
   pointer-events: none;
-  transform: translateY(8px);
-  visibility: hidden;
+  transform: translateY(8px) scale(0.95);
+  transition:
+    bottom 200ms ease,
+    transform 180ms ease,
+    opacity 180ms ease;
+}
+
+.float-controls.is-open .float-controls__option {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+.float-controls__opt-theme {
+  bottom: 100px;
+}
+
+.float-controls.is-top-hidden .float-controls__opt-theme {
+  bottom: 50px;
+}
+
+.float-controls__opt-background {
+  bottom: 150px;
+}
+
+.float-controls.is-top-hidden .float-controls__opt-background {
+  bottom: 100px;
+}
+
+.float-controls__opt-docs {
+  bottom: 200px;
+}
+
+.float-controls.is-top-hidden .float-controls__opt-docs {
+  bottom: 150px;
+}
+
+.float-controls__opt-cloud {
+  bottom: 250px;
+}
+
+.float-controls.is-top-hidden .float-controls__opt-cloud {
+  bottom: 200px;
 }
 
 .scroll-progress {

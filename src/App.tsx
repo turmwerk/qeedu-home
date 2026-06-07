@@ -16,6 +16,7 @@ import {
   Layers3,
   LineChart,
   LockKeyhole,
+  Moon,
   Network,
   PanelsTopLeft,
   School,
@@ -23,6 +24,7 @@ import {
   Settings2,
   ShieldCheck,
   Sparkles,
+  Sun,
   TerminalSquare,
   UserCheck,
   Users,
@@ -55,6 +57,29 @@ type PageDemo = {
 const cloudUrl = 'https://cloud.qeedu.tech'
 const docsUrl = 'https://docs.qeedu.tech'
 const githubUrl = 'https://github.com/turmwerk/qeedu'
+
+type FloatTheme = 'dark' | 'light'
+
+function readFloatTheme(): FloatTheme {
+  if (typeof window === 'undefined') return 'dark'
+
+  try {
+    const saved = window.localStorage.getItem('qeedu-float-theme')
+    return saved === 'light' || saved === 'dark' ? saved : 'dark'
+  } catch {
+    return 'dark'
+  }
+}
+
+function readBackgroundMuted() {
+  if (typeof window === 'undefined') return false
+
+  try {
+    return window.localStorage.getItem('qeedu-background-muted') === '1'
+  } catch {
+    return false
+  }
+}
 
 const navItems = [
   { label: '产品', href: '/product', icon: PanelsTopLeft },
@@ -807,13 +832,29 @@ const pageDemos: Record<string, PageDemo> = {
 
 function Layout() {
   const location = useLocation()
+  const [floatTheme, setFloatTheme] = useState<FloatTheme>(readFloatTheme)
+  const [backgroundMuted, setBackgroundMuted] = useState(readBackgroundMuted)
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [location.pathname])
 
+  useEffect(() => {
+    try {
+      window.localStorage.setItem('qeedu-float-theme', floatTheme)
+    } catch {}
+  }, [floatTheme])
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem('qeedu-background-muted', backgroundMuted ? '1' : '0')
+    } catch {}
+  }, [backgroundMuted])
+
+  const appClassName = ['app', backgroundMuted ? 'is-background-muted' : ''].filter(Boolean).join(' ')
+
   return (
-    <div className="app">
+    <div className={appClassName}>
       <AmbientBackground />
       <ScrollProgress />
       <Header />
@@ -831,7 +872,12 @@ function Layout() {
         </Routes>
       </div>
       <Footer />
-      <FloatingControls />
+      <FloatingControls
+        backgroundMuted={backgroundMuted}
+        floatTheme={floatTheme}
+        onToggleBackground={() => setBackgroundMuted((value) => !value)}
+        onToggleTheme={() => setFloatTheme((theme) => (theme === 'dark' ? 'light' : 'dark'))}
+      />
     </div>
   )
 }
@@ -874,7 +920,17 @@ function AmbientBackground() {
   )
 }
 
-function FloatingControls() {
+function FloatingControls({
+  backgroundMuted,
+  floatTheme,
+  onToggleBackground,
+  onToggleTheme,
+}: {
+  backgroundMuted: boolean
+  floatTheme: FloatTheme
+  onToggleBackground: () => void
+  onToggleTheme: () => void
+}) {
   const [atTop, setAtTop] = useState(true)
   const [open, setOpen] = useState(false)
 
@@ -892,38 +948,69 @@ function FloatingControls() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  const className = ['float-controls', atTop ? 'is-top-hidden' : '', open ? 'is-open' : ''].filter(Boolean).join(' ')
+  const className = [
+    'float-controls',
+    `is-${floatTheme}`,
+    atTop ? 'is-top-hidden' : '',
+    open ? 'is-open' : '',
+  ]
+    .filter(Boolean)
+    .join(' ')
+  const backgroundButtonClassName = [
+    'float-controls__button',
+    'float-controls__option',
+    'float-controls__opt-background',
+    backgroundMuted ? 'is-active' : '',
+  ]
+    .filter(Boolean)
+    .join(' ')
 
   return (
     <div className={className} aria-label="快捷控制">
-      <div className="float-controls__options">
-        <a className="float-controls__button float-controls__option" href={docsUrl} title="Docs" aria-label="打开 Docs">
-          <BookOpen size={18} />
-        </a>
-        <a className="float-controls__button float-controls__option" href={cloudUrl} title="Cloud" aria-label="打开 Cloud">
-          <Cloud size={18} />
-        </a>
-      </div>
-      <div className="float-controls__cluster">
-        <button
-          className="float-controls__button float-controls__settings"
-          type="button"
-          title="快捷入口"
-          aria-label="展开快捷入口"
-          onClick={() => setOpen((value) => !value)}
-        >
-          <Settings2 size={18} />
-        </button>
-        <button
-          className="float-controls__button float-controls__top"
-          type="button"
-          title="回到顶部"
-          aria-label="回到顶部"
-          onClick={scrollToTop}
-        >
-          <ArrowUp size={18} />
-        </button>
-      </div>
+      <a className="float-controls__button float-controls__option float-controls__opt-cloud" href={cloudUrl} title="Cloud" aria-label="打开 Cloud">
+        <Cloud size={18} />
+      </a>
+      <a className="float-controls__button float-controls__option float-controls__opt-docs" href={docsUrl} title="Docs" aria-label="打开 Docs">
+        <BookOpen size={18} />
+      </a>
+      <button
+        className={backgroundButtonClassName}
+        type="button"
+        title="弱化背景"
+        aria-label="弱化背景"
+        aria-pressed={backgroundMuted}
+        onClick={onToggleBackground}
+      >
+        <WandSparkles size={18} />
+      </button>
+      <button
+        className="float-controls__button float-controls__option float-controls__opt-theme"
+        type="button"
+        title="切换黑白按钮背景"
+        aria-label="切换黑白按钮背景"
+        onClick={onToggleTheme}
+      >
+        {floatTheme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+      </button>
+      <button
+        className="float-controls__button float-controls__settings"
+        type="button"
+        title="快捷入口"
+        aria-label="展开快捷入口"
+        aria-expanded={open}
+        onClick={() => setOpen((value) => !value)}
+      >
+        <Settings2 size={18} />
+      </button>
+      <button
+        className="float-controls__button float-controls__top"
+        type="button"
+        title="回到顶部"
+        aria-label="回到顶部"
+        onClick={scrollToTop}
+      >
+        <ArrowUp size={18} />
+      </button>
     </div>
   )
 }
