@@ -1265,6 +1265,7 @@ function ProductConsole() {
         <span />
         <span />
         <strong>Campus Agent Builder</strong>
+        <em>Live Run</em>
       </div>
       <div className="console-grid">
         <aside>
@@ -1276,6 +1277,11 @@ function ProductConsole() {
           ))}
         </aside>
         <div className="workflow-canvas">
+          <div className="console-status-row" aria-hidden="true">
+            <span>知识库同步</span>
+            <span>智能体运行</span>
+            <span>人工复核</span>
+          </div>
           <div className="node source">
             <DatabaseZap size={18} />
             校本知识
@@ -1294,6 +1300,26 @@ function ProductConsole() {
             <strong>今日试点</strong>
             <span>12 个任务模板被调用</span>
             <span>4 个知识库完成更新</span>
+          </div>
+          <div className="console-live-feed">
+            {[
+              ['09:42', '国际交流项目匹配完成', '已引用 6 份校本材料'],
+              ['09:45', '课程大纲草稿生成', '等待教师复核'],
+              ['09:48', '通知公告结构校验', '可导出 Markdown'],
+            ].map(([time, title, detail]) => (
+              <article key={title}>
+                <span>{time}</span>
+                <div>
+                  <strong>{title}</strong>
+                  <small>{detail}</small>
+                </div>
+              </article>
+            ))}
+          </div>
+          <div className="console-output-strip" aria-hidden="true">
+            <span>Audit OK</span>
+            <span>3 outputs</span>
+            <span>Human review</span>
           </div>
         </div>
       </div>
@@ -2023,10 +2049,43 @@ function PageShell({
         </div>
         <PageHeroVisual demo={demo} />
       </section>
+      <PageSignalRail demo={demo} />
       <PageProofSection demo={demo} />
       {children}
       <CallToAction />
     </main>
+  )
+}
+
+function PageSignalRail({ demo }: { demo: PageDemo }) {
+  return (
+    <section className={`page-signal-rail tone-${demo.tone}`} aria-label="页面关键信号">
+      <div className="page-signal-rail__track" aria-hidden="true">
+        {Array.from({ length: 16 }, (_, index) => (
+          <span key={`page-signal-node-${demo.tone}-${index}`} />
+        ))}
+      </div>
+      <div className="page-signal-rail__copy">
+        <span>{demo.label}</span>
+        <strong>{demo.headline}</strong>
+      </div>
+      <div className="page-signal-rail__items">
+        {[...demo.signals, ...demo.proof.checks].slice(0, 6).map((signal, index) => (
+          <span key={`${signal}-${index}`}>
+            {String(index + 1).padStart(2, '0')}
+            <em>{signal}</em>
+          </span>
+        ))}
+      </div>
+      <div className="page-signal-rail__metrics">
+        {demo.metrics.map((metric) => (
+          <span key={metric.label}>
+            <strong>{metric.value}</strong>
+            {metric.label}
+          </span>
+        ))}
+      </div>
+    </section>
   )
 }
 
