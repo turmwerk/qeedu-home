@@ -334,12 +334,11 @@ select {
   transition: transform 260ms ease;
 }
 
-.home-section-nav button span {
+.home-section-nav button svg {
   position: relative;
   z-index: 1;
+  flex: 0 0 auto;
   color: rgba(13, 125, 95, 0.7);
-  font-size: 11px;
-  font-weight: 850;
 }
 
 .home-section-nav button:hover,
@@ -367,9 +366,9 @@ select {
   outline-offset: 3px;
 }
 
-.home-section-nav button:hover span,
-.home-section-nav button:focus-visible span,
-.home-section-nav button.active span {
+.home-section-nav button:hover svg,
+.home-section-nav button:focus-visible svg,
+.home-section-nav button.active svg {
   color: #b8ff5c;
 }
 
@@ -1435,10 +1434,9 @@ select {
   transition: transform 240ms ease;
 }
 
-.home-flow-strip__actions button span {
+.home-flow-strip__actions button svg {
+  flex: 0 0 auto;
   color: #0d7d5f;
-  font-size: 11px;
-  font-weight: 900;
 }
 
 .home-flow-strip__actions button:hover,
@@ -1455,8 +1453,8 @@ select {
   transform: translateX(420%) skewX(-10deg);
 }
 
-.home-flow-strip__actions button:hover span,
-.home-flow-strip__actions button:focus-visible span {
+.home-flow-strip__actions button:hover svg,
+.home-flow-strip__actions button:focus-visible svg {
   color: #b8ff5c;
 }
 
@@ -2428,16 +2426,9 @@ select {
   transform: translateY(-1px);
 }
 
-.step-sequencer span {
-  display: grid;
+.step-sequencer svg {
   flex: 0 0 auto;
-  width: 24px;
-  height: 24px;
-  place-items: center;
-  border-radius: 999px;
-  background: #edf8ee;
   color: #0d5f49;
-  font-size: 12px;
 }
 
 .step-sequencer button.complete,
@@ -2446,10 +2437,9 @@ select {
   color: #dfffd0;
 }
 
-.step-sequencer button.complete span,
-.step-sequencer button.active span {
-  background: #b8ff5c;
-  color: #083d31;
+.step-sequencer button.complete svg,
+.step-sequencer button.active svg {
+  color: #b8ff5c;
 }
 
 .run-output-panel {
@@ -4313,7 +4303,7 @@ select {
 .page-hero__lanes article {
   position: relative;
   display: grid;
-  grid-template-columns: 48px minmax(0, 0.72fr) minmax(0, 1fr);
+  grid-template-columns: 32px minmax(0, 0.72fr) minmax(0, 1fr);
   gap: 10px;
   align-items: center;
   min-height: 62px;
@@ -4331,7 +4321,7 @@ select {
 .page-hero__lanes article::before {
   position: absolute;
   top: 50%;
-  left: 33px;
+  left: 26px;
   width: 1px;
   height: calc(100% + 9px);
   background: linear-gradient(180deg, color-mix(in srgb, var(--demo-accent) 50%, transparent), transparent);
@@ -4352,15 +4342,8 @@ select {
 .page-hero__lanes article > div {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 4px;
   place-items: center;
   color: var(--demo-accent);
-}
-
-.page-hero__lanes article > div span {
-  color: #65786f;
-  font-size: 10px;
-  font-weight: 860;
 }
 
 .page-hero__lanes article > strong {
@@ -4584,7 +4567,7 @@ select {
   position: relative;
   overflow: hidden;
   display: grid;
-  grid-template-columns: 36px minmax(0, 1fr);
+  grid-template-columns: 10px minmax(0, 1fr);
   gap: 8px;
   align-items: center;
   min-height: 44px;
@@ -4592,6 +4575,15 @@ select {
   color: var(--signal-deep);
   font-size: 12px;
   font-weight: 900;
+}
+
+.page-signal-rail__items span::before {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--signal-accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--signal-accent) 11%, transparent);
+  content: "";
 }
 
 .page-signal-rail__items em {
@@ -4791,7 +4783,7 @@ select {
   position: absolute;
   top: 28px;
   bottom: 28px;
-  left: 35px;
+  left: 33px;
   width: 1px;
   background: linear-gradient(180deg, var(--proof-accent), transparent);
   content: "";
@@ -4802,7 +4794,7 @@ select {
   position: relative;
   overflow: hidden;
   display: grid;
-  grid-template-columns: 34px 30px minmax(0, 1fr);
+  grid-template-columns: 32px minmax(0, 1fr);
   gap: 10px;
   align-items: center;
   min-height: 78px;
@@ -4836,18 +4828,6 @@ select {
 
 .page-proof__outputs article:hover::after {
   transform: translateX(430%) skewX(-10deg);
-}
-
-.page-proof__outputs article > span {
-  display: grid;
-  width: 30px;
-  height: 30px;
-  place-items: center;
-  border-radius: 8px;
-  background: var(--proof-soft);
-  color: var(--proof-deep);
-  font-size: 12px;
-  font-weight: 860;
 }
 
 .page-proof__outputs svg {

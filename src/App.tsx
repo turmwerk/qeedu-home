@@ -1164,9 +1164,8 @@ function HomeFlowStrip() {
         <strong>从定位、演示到版本路线，一屏一层推进</strong>
       </div>
       <div className="home-flow-strip__actions">
-        {homeAnchors.map((anchor, index) => (
+        {homeAnchors.map((anchor) => (
           <button key={anchor.id} type="button" onClick={() => scrollToSection(anchor.id)}>
-            <span>{String(index + 1).padStart(2, '0')}</span>
             <anchor.icon size={15} />
             {anchor.label}
           </button>
@@ -1209,7 +1208,7 @@ function HomeSectionNav() {
 
   return (
     <nav className="home-section-nav" aria-label="首页章节导航">
-      {homeAnchors.map((anchor, index) => (
+      {homeAnchors.map((anchor) => (
         <button
           aria-current={anchor.id === activeId ? 'true' : undefined}
           className={anchor.id === activeId ? 'active' : ''}
@@ -1217,7 +1216,6 @@ function HomeSectionNav() {
           type="button"
           onClick={() => scrollToSection(anchor.id)}
         >
-          <span>{String(index + 1).padStart(2, '0')}</span>
           <anchor.icon size={14} />
           {anchor.label}
         </button>
@@ -1447,7 +1445,7 @@ function AgentOrchestrationLab() {
                 type="button"
                 onClick={() => setActiveStepIndex(index)}
               >
-                <span>{index + 1}</span>
+                <item.icon size={16} />
                 {item.title}
               </button>
             ))}
@@ -2128,9 +2126,8 @@ function PageSignalRail({ demo }: { demo: PageDemo }) {
         <strong>{demo.headline}</strong>
       </div>
       <div className="page-signal-rail__items">
-        {[...demo.signals, ...demo.proof.checks].slice(0, 6).map((signal, index) => (
-          <span key={`${signal}-${index}`}>
-            {String(index + 1).padStart(2, '0')}
+        {[...demo.signals, ...demo.proof.checks].slice(0, 6).map((signal) => (
+          <span key={signal}>
             <em>{signal}</em>
           </span>
         ))}
@@ -2164,9 +2161,8 @@ function PageProofSection({ demo }: { demo: PageDemo }) {
         </div>
       </div>
       <div className="page-proof__outputs">
-        {demo.proof.outputs.map((output, index) => (
+        {demo.proof.outputs.map((output) => (
           <article key={output.title}>
-            <span>{String(index + 1).padStart(2, '0')}</span>
             <output.icon size={19} />
             <div>
               <h3>{output.title}</h3>
@@ -2203,11 +2199,10 @@ function PageHeroVisual({ demo }: { demo: PageDemo }) {
           ))}
         </div>
         <div className="page-hero__lanes">
-          {demo.lanes.map((lane, index) => (
+          {demo.lanes.map((lane) => (
             <article key={lane.title}>
               <div>
                 <lane.icon size={16} />
-                <span>{String(index + 1).padStart(2, '0')}</span>
               </div>
               <strong>{lane.title}</strong>
               <small>{lane.detail}</small>
