@@ -2125,13 +2125,22 @@ function PageShell({
   demo: PageDemo
   children: ReactNode
 }) {
+  const titleParts = title.split('，')
+
   return (
     <main className="page-shell">
       <PageBackplane demo={demo} />
       <section className="page-hero">
         <div className="page-hero__copy">
           <p className="eyebrow">{eyebrow}</p>
-          <h1>{title}</h1>
+          <h1>
+            {titleParts.map((part, index) => (
+              <span key={`${part}-${index}`}>
+                {part}
+                {index < titleParts.length - 1 ? '，' : ''}
+              </span>
+            ))}
+          </h1>
           <p>{desc}</p>
           <div className="page-hero__actions">
             <a className="solid-button" href={cloudUrl}>
