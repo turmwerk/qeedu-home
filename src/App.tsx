@@ -1141,11 +1141,7 @@ function HeroDataflow() {
           <span key={item}>{item}</span>
         ))}
       </div>
-      <div className="hero-dataflow__matrix">
-        {Array.from({ length: 24 }, (_, index) => (
-          <span key={`hero-matrix-${index}`} />
-        ))}
-      </div>
+      <div className="hero-dataflow__matrix" />
       <div className="hero-dataflow__status">
         <span>knowledge sync</span>
         <span>agent run</span>
@@ -1162,11 +1158,7 @@ function HomeFlowStrip() {
 
   return (
     <section className="home-flow-strip" aria-label="首页阅读路径">
-      <div className="home-flow-strip__rail" aria-hidden="true">
-        {Array.from({ length: 18 }, (_, index) => (
-          <span key={`home-flow-node-${index}`} />
-        ))}
-      </div>
+      <div className="home-flow-strip__rail" aria-hidden="true" />
       <div className="home-flow-strip__copy">
         <span>Flow Path</span>
         <strong>从定位、演示到版本路线，一屏一层推进</strong>
@@ -2118,11 +2110,6 @@ function PageBackplane({ demo }: { demo: PageDemo }) {
           <span key={`page-backplane-ribbon-${demo.tone}-${index}`} />
         ))}
       </div>
-      <div className="page-backplane__nodes">
-        {Array.from({ length: 24 }, (_, index) => (
-          <span key={`page-backplane-node-${demo.tone}-${index}`} />
-        ))}
-      </div>
       <div className="page-backplane__chips">
         {labels.map((label, index) => (
           <span key={`${label}-${index}`}>{label}</span>
@@ -2135,11 +2122,7 @@ function PageBackplane({ demo }: { demo: PageDemo }) {
 function PageSignalRail({ demo }: { demo: PageDemo }) {
   return (
     <section className={`page-signal-rail tone-${demo.tone}`} aria-label="页面关键信号">
-      <div className="page-signal-rail__track" aria-hidden="true">
-        {Array.from({ length: 16 }, (_, index) => (
-          <span key={`page-signal-node-${demo.tone}-${index}`} />
-        ))}
-      </div>
+      <div className="page-signal-rail__track" aria-hidden="true" />
       <div className="page-signal-rail__copy">
         <span>{demo.label}</span>
         <strong>{demo.headline}</strong>
@@ -2207,11 +2190,6 @@ function PageHeroVisual({ demo }: { demo: PageDemo }) {
           <span />
           <span />
         </div>
-        <div className="page-hero__nodes">
-          {Array.from({ length: 18 }, (_, index) => (
-            <span key={`page-node-${demo.tone}-${index}`} />
-          ))}
-        </div>
       </div>
       <div className="page-hero__screen">
         <div className="page-hero__topline">
@@ -2245,11 +2223,7 @@ function PageHeroVisual({ demo }: { demo: PageDemo }) {
           ))}
         </div>
       </div>
-      <div className="page-hero__orbit">
-        <span />
-        <span />
-        <span />
-      </div>
+      <div className="page-hero__orbit" />
     </div>
   )
 }
